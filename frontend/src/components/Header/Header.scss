@@ -1,0 +1,56 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: $belyy;
+  width: 100%;
+  z-index: 20;
+  padding: 15px 0;
+  box-shadow: 0 4px 20px 0 rgba(43, 43, 51, 0.2);
+}
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  width: 160px;
+  height: 60px;
+  transition: filter 0.2s ease-in;
+}
+
+.header__logo:hover {
+  filter: brightness(150%);
+}
+
+.header__icon-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__icon-btn-img:hover {
+  filter: opacity(80%);
+}
+
+.dropdawn-btn {
+  position: relative;
+  width: 40px;
+  height: 15px;
+}
+
+.dropdawn-btn span {
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 1px;
+  background-color: black;
+}
+
+.dropdawn-btn span:nth-child(1) {
+  transform: translateY(-6px);
+}
+.dropdawn-btn span:nth-child(3) {
+  transform: translateY(6px);
+}

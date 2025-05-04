@@ -1,0 +1,97 @@
+.swiper-button-next,
+.swiper-button-prev {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.swiper:hover .swiper-button-next,
+.swiper:hover .swiper-button-prev {
+  opacity: 1;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  display: none;
+}
+
+.swiper-button-prev {
+  background-image: url(../../assets/icons/swiper-prev.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background-color: $belyy;
+  border-radius: 50%;
+}
+
+.swiper-button-next {
+  background-image: url(../../assets/icons/swiper-next.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background-color: $belyy;
+  border-radius: 50%;
+}
+
+.mainSwiper {
+  .swiper-button-next {
+    top: 100%;
+    right: 480px;
+    border: 1px solid $liniya;
+    opacity: 1;
+  }
+
+  .swiper-button-prev {
+    top: 100%;
+    left: 480px;
+    border: 1px solid $liniya;
+    opacity: 1;
+  }
+
+  .toursCardSwiper {
+    .swiper-button-prev {
+      top: 50%;
+      left: 10px;
+      border: none;
+    }
+
+    .swiper-button-next {
+      top: 50%;
+      right: 10px;
+      border: none;
+    }
+  }
+}
+
+.swiper-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 84px;
+  padding-bottom: 10px;
+  padding-top: 18px;
+  border-top: 1px solid $liniya;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  color: $liniya;
+
+  .swiper-pagination-current {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 24px;
+    border: 1px solid $liniya;
+    border-radius: 30px;
+    color: $chernyy;
+  }
+}

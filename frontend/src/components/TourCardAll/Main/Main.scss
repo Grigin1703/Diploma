@@ -1,0 +1,415 @@
+.tourCardAllPage {
+  .main {
+    margin-bottom: 80px;
+  }
+
+  .main__content {
+    max-width: 736px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 80px;
+  }
+
+  .main__subtitle {
+    font-size: 28px;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .main__advantages-desc {
+    font-weight: 300;
+    line-height: 1.6;
+    text-align: justify;
+    margin-bottom: 30px;
+  }
+
+  .main__advantages-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 220px;
+    row-gap: 11px;
+    margin-left: 25px;
+
+    li {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        display: block;
+        content: "";
+
+        background-image: url(../../../assets//icons/amenities.svg);
+
+        top: 0;
+        left: -25px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .main__numbers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .numbers__card {
+    display: flex;
+    border: 1.5px solid $liniya;
+    border-radius: 30px;
+    overflow: hidden;
+    max-height: 320px;
+  }
+
+  .numbers__card-img {
+    width: 288px;
+    height: 320px;
+  }
+
+  .numbers__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .numbers__card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .numbers__card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .numbers__card-tourists {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 130px;
+
+    &::before {
+      position: absolute;
+      content: attr(data-users);
+      display: block;
+
+      top: 0;
+      right: -10px;
+      width: 90px;
+      height: 100%;
+      font-weight: 300;
+    }
+  }
+
+  .numbers__card-header-right,
+  .main__food-header {
+    button {
+      position: relative;
+      font-weight: 500;
+      padding: 10px 26px;
+      border: 1px solid #6a6a6a;
+      border-radius: 30px;
+
+      &:active {
+        background-color: aqua;
+      }
+
+      &::before {
+        position: absolute;
+        content: attr(data-status);
+        display: block;
+
+        left: 0;
+        bottom: -20px;
+        width: 100%;
+        height: 16px;
+        font-size: 14px;
+        font-weight: 400;
+        color: $seryy-tekst-2;
+      }
+    }
+  }
+
+  .numbers__card-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    padding-left: 25px;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    li {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        content: "";
+        display: block;
+
+        background-image: url(../../../assets/icons/amenities.svg);
+        top: 0;
+        left: -25px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .rating__title {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      display: block;
+      content: attr(data-rating);
+
+      width: 45px;
+      height: 29px;
+      top: 50%;
+      left: 230px;
+      transform: translateY(-50%);
+      background-color: $fioletovyy;
+      color: $belyy;
+      font-size: 18px;
+      padding: 4px 10px;
+      border-radius: 30px;
+    }
+  }
+
+  .main__rating-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+
+    li {
+      position: relative;
+      border-bottom: 2px solid $liniya;
+      padding: 10px 0;
+
+      &::before {
+        position: absolute;
+        content: attr(data-rating);
+        display: block;
+
+        width: 40px;
+        height: 25px;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        text-align: center;
+        padding: 2.5px 0;
+        border-radius: 30px;
+
+        background-color: rgba(#463998, 0.1);
+        color: $fioletovyy;
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.main__location-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.main__location-block {
+  strong {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+
+.main__location-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 12px;
+  li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 300;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+
+      left: -12px;
+      top: 6px;
+      background-color: $chernyy;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+    }
+  }
+}
+
+.main__beaches-content {
+  strong {
+    display: block;
+    margin-bottom: 15px;
+  }
+}
+
+.main__beaches-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px 52px;
+  padding-left: 12px;
+
+  li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 300;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+
+      left: -12px;
+      top: 6px;
+      background-color: $chernyy;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+    }
+  }
+}
+
+.main__aboutHotel-content {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 30px;
+}
+
+.main__aboutHotel-block {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 70px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid $liniya;
+  strong {
+    display: block;
+    text-transform: uppercase;
+  }
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.main__aboutHotel-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 40px;
+
+  li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 300;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+
+      left: -12px;
+      top: 6px;
+      background-color: $chernyy;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+    }
+  }
+}
+
+.main__forChildren-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 70px;
+  strong {
+    display: block;
+    text-transform: uppercase;
+  }
+}
+
+.main__forChildren-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 40px;
+  li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 300;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+
+      left: -12px;
+      top: 6px;
+      background-color: $chernyy;
+      border-radius: 50%;
+      width: 5px;
+      height: 5px;
+    }
+  }
+}
+
+.main__food {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+}
+
+.main__food-block {
+  padding: 24px;
+  border: 1px solid $liniya;
+  border-radius: 30px;
+}
+
+.main__food-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  strong {
+    font-size: 20px;
+  }
+}
+
+.main__food-list {
+  display: grid;
+  grid-template-columns: repeat(1, 450px);
+  gap: 10px;
+  padding-left: 25px;
+
+  li {
+    position: relative;
+    font-size: 14px;
+    font-weight: 300;
+
+    &::after {
+      position: absolute;
+      content: "";
+      display: block;
+
+      left: -25px;
+      top: 0px;
+      background-image: url(../../../assets/icons/amenities.svg);
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
