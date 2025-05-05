@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function TourRoomInfoForm({
   formData,
@@ -16,6 +16,21 @@ export default function TourRoomInfoForm({
   const toggleRoomOpen = (index) => {
     setOpenRoomIndex((prev) => (prev === index ? null : index));
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      roomRefs.current.forEach((ref, index) => {
+        if (ref && !ref.contains(event.target)) {
+          setOpenRoomIndex((prev) => (prev === index ? null : prev));
+        }
+      });
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <section className="editTour__room editTour__section" id="room">

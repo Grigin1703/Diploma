@@ -1,24 +1,36 @@
-import "./TourBasicInfoForm.scss";
 import RatingImg from "@/assets/icons/star1.svg";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 
 export default function TourBasicInfoForm({
   formData,
   setFormData,
   handleChange,
   handleSubmit,
-  ratingBlock,
-  durationMinBlock,
-  durationMaxBlock,
 }) {
   const [durationMaxOpen, setDurationMaxOpen] = useState(false);
   const durationMaxValue = [8, 10, 12, 15, 20];
+  const durationMaxBlock = useRef(null);
 
   const [durationMinOpen, setDurationMinOpen] = useState(false);
   const durationMinValue = [6, 8, 10, 12, 15];
+  const durationMinBlock = useRef(null);
 
   const [ratingOpen, setRatingOpen] = useState(false);
   const ratingValue = [1, 2, 3, 4, 5];
+  const ratingBlock = useRef(null);
+
+  useOutsideClick(durationMinBlock, () => {
+    setDurationMinOpen(false);
+  });
+
+  useOutsideClick(durationMaxBlock, () => {
+    setDurationMaxOpen(false);
+  });
+
+  useOutsideClick(ratingBlock, () => {
+    setRatingOpen(false);
+  });
 
   return (
     <section className="editTour__basic editTour__section" id="basic">
@@ -152,7 +164,7 @@ export default function TourBasicInfoForm({
               </div>
             </div>
           </div>
-          <div className="editTour__field editTour__block-price">
+          <div className="editTour__field editTour__field-price">
             <div className="editTour__price-inputs">
               {Object.entries(formData.pricesByDuration).map(
                 ([days, price]) => (

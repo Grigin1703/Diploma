@@ -26,6 +26,14 @@
     }
   }
 
+  .editTour__title {
+    font-size: 44px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 140px;
+    margin-bottom: 30px;
+  }
+
   .editTour__section {
     scroll-margin-top: 80px;
     margin-bottom: 80px;
@@ -45,6 +53,7 @@
     }
 
     input {
+      width: 100%;
       border: 1px solid $liniya;
       padding: 10px 5px 11px 26px;
       border-radius: 30px;
@@ -56,6 +65,18 @@
         border-color: $chernyy;
         color: $chernyy;
       }
+    }
+
+    textarea {
+      resize: none;
+      width: 100%;
+      height: 100%;
+      line-height: 1.5;
+      text-align: justify;
+      border: 10px solid $belyy;
+      padding-right: 10px;
+
+      @include scrollbar;
     }
 
     .editTour__section-title {
@@ -83,397 +104,261 @@
         font-weight: 500;
       }
     }
-  }
 
-  .editTour__room,
-  .editTour__food {
     .editTour__field {
       grid-column: 1/4;
+
+      .editTour__field-inputs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+      }
+
+      .editTour__field-row {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        // input {
+        //   width: 100%;
+        // }
+      }
+
+      .editTour__field-detail {
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+
+        div {
+          width: 100%;
+        }
+
+        button {
+          border: 1px solid $chernyy;
+          padding: 5px 10px;
+          border-radius: 30px;
+          margin-bottom: 5px;
+          transition: background-color 0.2s ease-in, color 0.2s ease-in,
+            filter 0.2s ease-in;
+
+          &:hover {
+            background-color: $chernyy;
+            color: $belyy;
+          }
+
+          &:active {
+            filter: brightness(90%);
+          }
+        }
+      }
+
+      .editTour__field-btns {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        button {
+          width: 100%;
+          padding: 10px;
+          border-radius: 30px;
+          font-weight: 500;
+          color: $belyy;
+        }
+
+        .editTour__field-btn--add {
+          background-color: $krasnyy;
+          transition: background-color 0.2s ease-in, filter 0.2s ease-in;
+          &:hover {
+            background-color: #dd1a21;
+          }
+
+          &:active {
+            filter: brightness(90%);
+          }
+        }
+
+        .editTour__field-btn--remove {
+          background-color: $chernyy;
+          transition: background-color 0.2s ease-in, filter 0.2s ease-in;
+
+          &:hover {
+            background-color: #2e2b2b;
+          }
+
+          &:active {
+            filter: brightness(90%);
+          }
+        }
+
+        .editTour__all-btn--add {
+          background-color: $belyy;
+          border: 2px solid $krasnyy;
+          color: $chernyy;
+          transition: background-color 0.2s ease-in, color 0.2s ease-in;
+
+          &:hover {
+            background-color: $krasnyy;
+            color: $belyy;
+          }
+        }
+      }
+
+      .editTour__block-btn {
+        grid-column: 1/4;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 30px;
+
+        button {
+          grid-column: 2/3;
+          background-color: $belyy;
+          border: 2px solid $krasnyy;
+          padding: 10px;
+          border-radius: 30px;
+          font-weight: 500;
+          transition: background-color 0.2s ease-in, color 0.2s ease-in;
+
+          &:hover {
+            background-color: $krasnyy;
+            color: $belyy;
+          }
+        }
+      }
     }
 
-    .editTour__field-inputs {
+    .editTour__dropdown {
+      position: relative;
+      border: 1px solid $liniya;
+      padding: 10px 5px 11px 26px;
+      border-radius: 30px;
+      color: $seryy-tekst;
+      cursor: pointer;
+      transition: border-color 0.2s ease-in, color 0.2s ease-in;
+
+      img {
+        opacity: 0.5;
+        transition: opacity 0.2s ease-in;
+      }
+
+      &.focus {
+        border-color: $chernyy;
+        color: $chernyy;
+
+        img {
+          opacity: 1;
+        }
+      }
+
+      .editTour__dropdown-value {
+        display: flex;
+        gap: 5px;
+      }
+
+      .editTour__dropdown-list-wrapper {
+        position: absolute;
+        top: 48px;
+        left: 0;
+        width: 100%;
+        border-radius: 20px;
+        border: 1px solid $chernyy;
+        background-color: $belyy;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease-in, visibility 0.2s ease-in,
+          box-shadow 0.2s ease-in;
+
+        &.open {
+          opacity: 1;
+          visibility: visible;
+          box-shadow: 0 4px 20px 0 rgba(43, 43, 51, 0.2);
+        }
+      }
+
+      .editTour__dropdown-list {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0;
+
+        .editTour__dropdown-item {
+          padding: 5px 0px 5px 26px;
+
+          &:hover {
+            background-color: #f3f1ff;
+          }
+          &.active {
+            background-color: #f3f1ff;
+          }
+          &:active {
+            filter: brightness(95%);
+          }
+
+          img {
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .editTour__basic {
+    .editTour__field {
+      grid-column: inherit;
+    }
+
+    .editTour__field-price {
+      grid-column: 1/4;
+
+      .editTour__price-inputs {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 35px;
+        div {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+
+  .editTour__images {
+    .editTour__images-field-row {
+      grid-column: 1/4;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-    }
-
-    .editTour__field-row {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
+      gap: 35px;
 
       input {
         width: 100%;
       }
     }
-
-    .editTour__field-detail {
-      display: flex;
-      align-items: flex-end;
-      gap: 10px;
-
-      div {
-        width: 100%;
-      }
-
-      button {
-        border: 1px solid $chernyy;
-        padding: 5px 10px;
-        border-radius: 30px;
-        margin-bottom: 5px;
-        transition: background-color 0.2s ease-in, color 0.2s ease-in,
-          filter 0.2s ease-in;
-
-        &:hover {
-          background-color: $chernyy;
-          color: $belyy;
-        }
-
-        &:active {
-          filter: brightness(90%);
-        }
-      }
-    }
-
-    .editTour__field-btns {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-
-      button {
-        width: 100%;
-        padding: 10px;
-        border-radius: 30px;
-        font-weight: 500;
-        color: $belyy;
-      }
-
-      .editTour__field-btn--add {
-        background-color: $krasnyy;
-        transition: background-color 0.2s ease-in, filter 0.2s ease-in;
-        &:hover {
-          background-color: #dd1a21;
-        }
-
-        &:active {
-          filter: brightness(90%);
-        }
-      }
-
-      .editTour__field-btn--remove {
-        background-color: $chernyy;
-        transition: background-color 0.2s ease-in, filter 0.2s ease-in;
-
-        &:hover {
-          background-color: #2e2b2b;
-        }
-
-        &:active {
-          filter: brightness(90%);
-        }
-      }
-    }
-
-    .editTour__block-btn {
-      grid-column: 1/4;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0 30px;
-
-      button {
-        grid-column: 2/3;
-        background-color: $belyy;
-        border: 2px solid $krasnyy;
-        padding: 10px;
-        border-radius: 30px;
-        font-weight: 500;
-        transition: background-color 0.2s ease-in, color 0.2s ease-in;
-
-        &:hover {
-          background-color: $krasnyy;
-          color: $belyy;
-        }
-      }
-    }
   }
 
-  // .editTour__basic,
-  // .editTour__food,
-  // .editTour__room {
-  //   .editTour__form-numder-block,
-  //   .editTour__form-food-type,
-  //   .editTour__form-room-type {
-  //     position: relative;
-  //     border: 1px solid $liniya;
-  //     padding: 10px 5px 11px 26px;
-  //     border-radius: 30px;
-  //     font-weight: 500;
+  .editTour__all {
 
-  //     .editTour__form-numder-value,
-  //     .editTour__form-food-value,
-  //     .editTour__form-room-value {
-  //       display: flex;
-  //       gap: 5px;
-  //     }
-  //   }
+    .editTour__field {
+      grid-column: inherit;
+      gap: 30px;
+      input {
+        width: 100%;
+      }
+    }
 
-  //   .editTour__form-numder-dropdown,
-  //   .editTour__form-food-dropdown,
-  //   .editTour__form-room-dropdown {
-  //     position: absolute;
-  //     top: 48px;
-  //     left: 0;
-  //     width: 100%;
-  //     border-radius: 20px;
-  //     border: 1px solid $chernyy;
-  //     background-color: $belyy;
-  //     overflow: hidden;
-  //     opacity: 0;
-  //     visibility: hidden;
+    .editTour__all-advantages {
+      height: 100%;
+      margin-bottom: 16px;
 
-  //     &.open {
-  //       opacity: 1;
-  //       visibility: visible;
-  //     }
+      .editTour__all-textarea {
+        border: 1px solid $liniya;
+        border-radius: 30px;
+        padding: 15px;
+        height: 100%;
+        min-height: 200px;
+      }
+    }
 
-  //     .editTour__form-numder-list,
-  //     .editTour__form-food-list,
-  //     .editTour__form-room-list {
-  //       padding: 10px 0;
-  //       li {
-  //         display: flex;
-  //         gap: 5px;
-  //         padding: 5px 0;
-  //         padding-left: 26px;
-  //         &:hover {
-  //           background-color: $fioletovyy;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   .editTour__form-block-price {
-  //     grid-column: 1/4;
-
-  //     .editTour__form-price-content {
-  //       display: grid;
-  //       grid-template-columns: repeat(3, 1fr);
-  //       gap: 30px;
-  //       div {
-  //         display: flex;
-  //         flex-direction: column;
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .editTour__food,
-  // .editTour__room {
-  //   .editTour__form-food-block,
-  //   .editTour__form-room-block {
-  //     grid-column: 1/4;
-
-  //     input {
-  //       width: 100%;
-  //     }
-
-  //     .editTour__form-food-content,
-  //     .editTour__form-room-content {
-  //       display: grid;
-  //       grid-template-columns: repeat(3, 1fr);
-  //       gap: 30px;
-
-  //       .editTour__form-food-flex,
-  //       .editTour__form-room-flex {
-  //         display: flex;
-  //         flex-direction: column;
-  //         gap: 30px;
-
-  //         .editTour__form-food-details,
-  //         .editTour__form-room-details {
-  //           display: flex;
-  //           align-items: flex-end;
-  //           gap: 10px;
-
-  //           div {
-  //             width: 100%;
-  //           }
-
-  //           button {
-  //             border: 1px solid $chernyy;
-  //             padding: 5px 10px;
-  //             border-radius: 30px;
-  //             margin-bottom: 5px;
-  //           }
-  //         }
-  //         .editTour__form-food-btn-block,
-  //         .editTour__form-room-btn-block {
-  //           display: flex;
-  //           align-items: center;
-  //           gap: 20px;
-
-  //           button {
-  //             width: 100%;
-  //             padding: 10px;
-  //             border-radius: 30px;
-  //             font-weight: 500;
-  //             color: $belyy;
-  //           }
-  //           .editTour__form-food-btn-add,
-  //           .editTour__form-room-btn-add {
-  //             background-color: $krasnyy;
-  //           }
-
-  //           .editTour__form-food-btn-remove,
-  //           .editTour__form-room-btn-remove {
-  //             background-color: $chernyy;
-  //           }
-  //         }
-  //       }
-
-  //       .editTour__block-btn {
-  //         grid-column: 1/4;
-  //         display: grid;
-  //         grid-template-columns: repeat(3, 1fr);
-  //         gap: 0 30px;
-  //         .editTour__form-food-content-btn,
-  //         .editTour__form-room-content-btn {
-  //           grid-column: 2/3;
-  //           background-color: $belyy;
-  //           border: 2px solid $krasnyy;
-  //           padding: 10px;
-  //           border-radius: 30px;
-  //           font-weight: 500;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .editTour__images {
-  //   .editTour__form-images-block {
-  //     grid-column: 1/4;
-  //     .editTour__form-images-flex {
-  //       display: grid;
-  //       grid-template-columns: repeat(3, 1fr);
-  //       gap: 30px;
-
-  //       .editTour__form-images-details {
-  //         display: flex;
-  //         align-items: flex-end;
-  //         gap: 10px;
-
-  //         div {
-  //           width: 100%;
-  //         }
-
-  //         input {
-  //           width: 100%;
-  //         }
-
-  //         button {
-  //           border: 1px solid $chernyy;
-  //           padding: 5px 10px;
-  //           border-radius: 30px;
-  //           margin-bottom: 5px;
-  //         }
-  //       }
-
-  //       .editTour__form-images-btn-block {
-  //         grid-column: 1/4;
-  //         display: grid;
-  //         grid-template-columns: repeat(3, 1fr);
-  //         gap: 0 30px;
-
-  //         .editTour__form-images-btn-add {
-  //           grid-column: 2/3;
-  //           width: 100%;
-  //           padding: 10px;
-  //           border-radius: 30px;
-  //           font-weight: 500;
-  //           background-color: $belyy;
-  //           border: 2px solid $krasnyy;
-  //         }
-  //       }
-  //     }
-  //   }
-  // }
-
-  // .edittour__all {
-  //   .editTour__form-block {
-  //     gap: 30px;
-
-  //     .editTour__form-all-advantages {
-  //       height: 100%;
-  //       margin-bottom: 16px;
-
-  //       .editTour__form-textarea-block {
-  //         border: 1px solid $liniya;
-  //         border-radius: 30px;
-  //         padding: 15px;
-  //         height: 100%;
-  //         min-height: 200px;
-  //         textarea {
-  //           resize: none;
-  //           width: 100%;
-  //           height: 100%;
-  //           line-height: 1.5;
-  //           text-align: justify;
-  //           border: 10px solid $belyy;
-  //           padding-right: 10px;
-
-  //           @include scrollbar;
-  //         }
-  //       }
-  //     }
-
-  //     .editTour__form-all-element {
-  //       display: flex;
-  //       align-items: flex-end;
-  //       gap: 10px;
-
-  //       button {
-  //         border: 1px solid $chernyy;
-  //         padding: 5px 10px;
-  //         border-radius: 30px;
-  //         margin-bottom: 5px;
-  //       }
-  //     }
-  //   }
-
-  //   .editTour__form-all-block {
-  //     grid-column: 2/4;
-
-  //     .editTour__form-all-content {
-  //       display: flex;
-  //       flex-direction: column;
-  //       gap: 30px;
-  //       .editTour__form-all-flex {
-  //         display: flex;
-  //         align-items: flex-end;
-  //         gap: 30px;
-  //         .editTour__form-all-input-block {
-  //           display: flex;
-  //           width: 100%;
-  //           gap: 10px;
-  //           div {
-  //             width: 100%;
-  //             input {
-  //               width: 100%;
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   .editTour__form-all-content-btn {
-  //     background-color: $belyy;
-  //     border: 2px solid $krasnyy;
-  //     grid-column: 2/3;
-  //     padding: 10px;
-  //     border-radius: 30px;
-  //     font-weight: 500;
-  //   }
-  // }
+    .editTour__field-all {
+      grid-column: 2/4;
+    }
+  }
 }

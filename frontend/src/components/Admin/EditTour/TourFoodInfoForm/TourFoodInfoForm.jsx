@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function TourFoodInfoForm({
   formData,
@@ -21,6 +21,21 @@ export default function TourFoodInfoForm({
   const toggleFoodOpen = (index) => {
     setOpenFoodIndex((prev) => (prev === index ? null : index));
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      foodRefs.current.forEach((ref, index) => {
+        if (ref && !ref.contains(event.target)) {
+          setOpenFoodIndex((prev) => (prev === index ? null : prev));
+        }
+      });
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <section className="editTour__food editTour__section" id="food">

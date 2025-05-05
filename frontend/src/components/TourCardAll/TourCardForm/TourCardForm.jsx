@@ -84,11 +84,10 @@ export default function TourForm({ pricesByDuration, rooms, foods }) {
 
   const total =
     (Number(pricesByDuration[stayDuration]) +
-      selectedFood?.price +
-      selectedRoom?.price +
-      priceAirport?.price) *
+      Number(selectedFood?.price) +
+      Number(selectedRoom?.price) +
+      Number(priceAirport?.price)) *
     tempTourists;
-  console.log((priceAirport?.price)),
   useEffect(() => {
     const fetchAirports = async () => {
       getAirportsByCity(cityFrom).then((data) => {
