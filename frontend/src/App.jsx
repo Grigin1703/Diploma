@@ -10,6 +10,7 @@ import FormAdmin from "@/components/Admin/FormAdmin/FormAdmin";
 import AdminPanel from "./pages/AdminPanelPage";
 import PrivateRoute from "@/components/Admin/PrivateRoute/PrivateRoute";
 import EditTourPage from "./pages/EditTourPage";
+import AddTourPage from "./pages/AddTourPage";
 
 export default function App() {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -48,6 +49,14 @@ export default function App() {
           element={
             <PrivateRoute>
               <EditTourPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/admin/add"
+          element={
+            <PrivateRoute>
+              <AddTourPage />
             </PrivateRoute>
           }
         />

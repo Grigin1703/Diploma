@@ -19,16 +19,12 @@ const tourSchema = (isUpdate = false) =>
     rating: isUpdate
       ? Joi.number().integer().min(1).max(5).optional()
       : Joi.number().integer().min(1).max(5).required(),
-    user_rating_total: Joi.number().precision(2, 1).optional(),
     duration_min: isUpdate
       ? Joi.number().valid(6, 8, 10, 12, 15).optional()
       : Joi.number().valid(6, 8, 10, 12, 15).required(),
     duration_max: isUpdate
       ? Joi.number().valid(8, 10, 12, 15, 20).optional()
       : Joi.number().valid(8, 10, 12, 15, 20).required(),
-    price: isUpdate
-      ? Joi.number().precision(7).optional()
-      : Joi.number().precision(7).required(),
     pricesByDuration: Joi.object({
       6: Joi.number().optional(),
       8: Joi.number().optional(),

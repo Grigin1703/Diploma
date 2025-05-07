@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-export default function TourRoomInfoForm({
+export default function TourFoodInfoForm({
   formData,
   handleSubmit,
   handleArrayObjectChange,
@@ -10,18 +10,23 @@ export default function TourRoomInfoForm({
   handleDeleteArrayItem,
   handleAddArrayItem,
 }) {
-  const [openRoomIndex, setOpenRoomIndex] = useState(null);
-  const RoomValue = ["Comfort room", "Premium suite", "King suite"];
-  const roomRefs = useRef([]);
-  const toggleRoomOpen = (index) => {
-    setOpenRoomIndex((prev) => (prev === index ? null : index));
+  const [openFoodIndex, setOpenFoodIndex] = useState(null);
+  const FoodValue = [
+    "All inclusive ultra",
+    "All inclusive",
+    "2-х разовое питание",
+    "Только завтраки",
+  ];
+  const foodRefs = useRef([]);
+  const toggleFoodOpen = (index) => {
+    setOpenFoodIndex((prev) => (prev === index ? null : index));
   };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      roomRefs.current.forEach((ref, index) => {
+      foodRefs.current.forEach((ref, index) => {
         if (ref && !ref.contains(event.target)) {
-          setOpenRoomIndex((prev) => (prev === index ? null : prev));
+          setOpenFoodIndex((prev) => (prev === index ? null : prev));
         }
       });
     };
@@ -33,43 +38,43 @@ export default function TourRoomInfoForm({
   }, []);
 
   return (
-    <section className="editTour__room editTour__section" id="room">
+    <section className="formTour__food formTour__section" id="food">
       <div className="container">
-        <h2 className="editTour__section-title">Номера:</h2>
-        <form onSubmit={handleSubmit} className="editTour__form">
-          <div className="editTour__field">
-            <div className="editTour__field-inputs">
-              {formData.rooms.map((room, index) => (
-                <div key={index} className="editTour__field-row">
-                  <div className="editTour__food-label-block">
-                    <label>Тип:</label>
+        <h2 className="formTour__section-title">Еда:</h2>
+        <form onSubmit={handleSubmit} className="formTour__form">
+          <div className="formTour__field">
+            <div className="formTour__field-inputs">
+              {formData.mealPlans.map((food, index) => (
+                <div key={index} className="formTour__field-row">
+                  <div className="formTour__food-label-block">
+                    <label>Категория:</label>
                     <div
-                      className={`editTour__dropdown ${
-                        openRoomIndex === index ? "focus" : ""
+                      className={`formTour__dropdown ${
+                        openFoodIndex === index ? "focus" : ""
                       }`}
-                      onClick={() => toggleRoomOpen(index)}
-                      ref={(el) => (roomRefs.current[index] = el)}
+                      onClick={() => toggleFoodOpen(index)}
+                      ref={(el) => (foodRefs.current[index] = el)}
                     >
-                      <div className="editTour__dropdown-value">
+                      <div className="formTour__dropdown-value">
                         <span>
-                          {room.type === "" ? "Указать тип номера" : room.type}
+                          {food.type === "" ? "Указать категорию" : food.type}
                         </span>
                       </div>
                       <div
-                        className={`editTour__dropdown-list-wrapper ${
-                          openRoomIndex === index ? "open" : ""
+                        className={`formTour__dropdown-list-wrapper ${
+                          openFoodIndex === index ? "open" : ""
                         }`}
                       >
-                        <ul className="editTour__dropdown-list">
-                          {RoomValue.map((item, key) => (
+                        <ul className="formTour__dropdown-list">
+                          {FoodValue.map((item, key) => (
                             <li
                               key={key}
-                              className={`editTour__dropdown-item ${
-                                room.type === item ? "active" : ""
+                              className={`formTour__dropdown-item ${
+                                food.type === item ? "active" : ""
                               }`}
                               onClick={() => {
                                 handleArrayObjectChange(
-                                  "rooms",
+                                  "mealPlans",
                                   index,
                                   "type",
                                   item
@@ -83,32 +88,15 @@ export default function TourRoomInfoForm({
                       </div>
                     </div>
                   </div>
-                  <div className="editTour__food-label-block">
-                    <label htmlFor={`${room.images}-${index}`}>
-                      Изображение:
-                    </label>
+                  <div className="formTour__food-label-block">
+                    <label htmlFor={`foodPrice-${index}`}>Цена:</label>
                     <input
-                      id={`${room.images}-${index}`}
-                      value={room.images}
-                      onChange={(e) => {
-                        handleArrayObjectChange(
-                          "rooms",
-                          index,
-                          "images",
-                          e.target.value
-                        );
-                      }}
-                    />
-                  </div>
-                  <div className="editTour__food-label-block">
-                    <label htmlFor={`${room.price}-${index}`}>Цена:</label>
-                    <input
-                      id={`${room.price}-${index}`}
+                      id={`foodPrice-${index}`}
                       type="number"
-                      value={room.price}
+                      value={food.price}
                       onChange={(e) =>
                         handleArrayObjectChange(
-                          "rooms",
+                          "mealPlans",
                           index,
                           "price",
                           e.target.value
@@ -116,10 +104,10 @@ export default function TourRoomInfoForm({
                       }
                     />
                   </div>
-                  {room.details.map((item, i) => {
-                    const inputId = `rooms-${index}-detail-${i}`;
+                  {food.details.map((item, i) => {
+                    const inputId = `mealPlans-${index}-detail-${i}`;
                     return (
-                      <div key={i} className="editTour__field-detail">
+                      <div key={i} className="formTour__field-detail">
                         <div>
                           <label htmlFor={inputId}>Деталь:</label>
                           <input
@@ -127,7 +115,7 @@ export default function TourRoomInfoForm({
                             value={item}
                             onChange={(e) =>
                               handleArrayInArrayChange(
-                                "rooms",
+                                "mealPlans",
                                 index,
                                 "details",
                                 i,
@@ -139,7 +127,7 @@ export default function TourRoomInfoForm({
                         <button
                           type="button"
                           onClick={() =>
-                            handleDeleteNested("rooms", index, "details", i)
+                            handleDeleteNested("mealPlans", index, "details", i)
                           }
                         >
                           Удалить
@@ -147,36 +135,38 @@ export default function TourRoomInfoForm({
                       </div>
                     );
                   })}
-                  <div className="editTour__field-btns">
+                  <div className="formTour__field-btns">
                     <button
                       type="button"
-                      className="editTour__field-btn--add"
+                      className="formTour__field-btn--add"
                       onClick={() =>
-                        handleAddNestedArrayItem("rooms", index, "details", "")
+                        handleAddNestedArrayItem(
+                          "mealPlans",
+                          index,
+                          "details",
+                          ""
+                        )
                       }
                     >
                       Добавить деталь
                     </button>
-                    {/* Кнопка удалить план */}
                     <button
                       type="button"
-                      className="editTour__field-btn--remove"
-                      onClick={() => handleDeleteArrayItem("rooms", index)}
+                      className="formTour__field-btn--remove"
+                      onClick={() => handleDeleteArrayItem("mealPlans", index)}
                     >
                       Удалить всё
                     </button>
                   </div>
                 </div>
               ))}
-              <div className="editTour__block-btn">
+              <div className="formTour__block-btn">
                 <button
                   type="button"
-                  className="editTour__form-room-content-btn"
                   onClick={() =>
-                    handleAddArrayItem("rooms", {
+                    handleAddArrayItem("mealPlans", {
                       type: "",
                       price: 0,
-                      images: "",
                       details: [""],
                     })
                   }
@@ -186,7 +176,7 @@ export default function TourRoomInfoForm({
               </div>
             </div>
           </div>
-          <button className="editTour__btn" type="submit">
+          <button className="formTour__btn" type="submit">
             Сохранить
           </button>
         </form>

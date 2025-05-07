@@ -1,7 +1,7 @@
 import "../FormTour/FormTour.scss";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { getByIdTourAdmin, updateTour } from "@/api/tours.js";
+import { useNavigate } from "react-router-dom";
+import { createTour } from "@/api/tours.js";
 import Logo from "@/components/logo/logo";
 
 import TourBasicInfoForm from "../FormTour/TourBasicInfoForm/TourBasicInfoForm";
@@ -10,8 +10,7 @@ import TourRoomInfoForm from "../FormTour/TourRoomInfoForm/TourRoomInfoForm";
 import TourImagesInfoForm from "../FormTour/TourImagesInfoForm/TourImagesInfoForm";
 import TourAllInfoForm from "../FormTour/TourAllInfoForm/TourAllInfoForm";
 
-export default function EditTour() {
-  const { id } = useParams();
+export default function AddTour() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     title: "",
@@ -51,15 +50,25 @@ export default function EditTour() {
   const heandleNavBtnClick = (e) => {
     setActiveNavBtn(e);
   };
-
+  
   useEffect(() => {
-    const fetchTour = async () => {
-      const data = await getByIdTourAdmin(id);
-      setFormData(data);
-    };
+    if (formData.imges.length === 0) {
+      setFormData((prev) => ({
+        ...prev,
+        imges: [{ image_url: [""] }],
+      }));
+    }
+  }, []);
 
-    fetchTour();
-  }, [id]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createTour(formData);
+      //   navigate("/admin");
+    } catch (err) {
+      aalert(`Ошибка при создании тура: ${err}`);
+    }
+  };
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -163,11 +172,6 @@ export default function EditTour() {
       updatedArray[index][nestedField] = updatedNested;
       return { ...prev, [arrayField]: updatedArray };
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await updateTour(id, formData);
   };
 
   const handleScip = () => {

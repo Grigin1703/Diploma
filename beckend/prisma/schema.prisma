@@ -41,10 +41,8 @@ model tours {
   title                  String?  @db.VarChar(255)
   sub_title              String?  @db.VarChar(255)
   rating                 Int?
-  user_rating_total      Decimal? @db.Decimal(5, 1)
   duration_min           Int?
   duration_max           Int?
-  price                  Decimal? @db.Decimal(10, 0)
   pricesByDuration       Json     @default("{}")
   advantages             String?
   amenities              String[]

@@ -1,6 +1,79 @@
-.ul{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 50px;
+.adminPanel {
+  .header {
+    position: inherit;
+    padding: 0;
+    margin-bottom: 60px;
 
+    .header__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav__list {
+      display: flex;
+      gap: 30px;
+      a {
+        color: $chernyy;
+      }
+    }
+
+    .header__btn {
+      color: $belyy;
+      padding: 10px 16px;
+      background-color: $krasnyy;
+      border-radius: 30px;
+      font-weight: 500;
+    }
+  }
+
+  .table {
+    .table__title {
+      text-align: center;
+      font-size: 44px;
+      font-weight: 500;
+      margin-bottom: 50px;
+    }
+
+    .table__table {
+      width: 100%;
+      border: 1px solid $chernyy;
+      border-collapse: collapse;
+    }
+
+    .table__col {
+      border: 1px solid $chernyy;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .table__head {
+      .table__row {
+        font-weight: 500;
+        text-align: center;
+        padding: 5px;
+        color: $belyy;
+        background-color: $krasnyy;
+      }
+
+      .table__col {
+        background-color: initial;
+      }
+    }
+
+    .table__btn {
+      padding: 5px 10px;
+      border-radius: 30px;
+      color: $belyy;
+
+      &:first-child {
+        background-color: $krasnyy;
+        margin-right: 5px;
+      }
+
+      &:last-child {
+        background-color: $chernyy;
+      }
+    }
+  }
 }

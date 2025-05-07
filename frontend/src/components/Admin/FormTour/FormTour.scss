@@ -1,4 +1,5 @@
-.editTour {
+.editTour,
+.addTour {
   .header {
     position: fixed;
     padding: 0;
@@ -26,7 +27,7 @@
     }
   }
 
-  .editTour__title {
+  .formTour__title {
     font-size: 44px;
     font-weight: 500;
     text-align: center;
@@ -34,7 +35,7 @@
     margin-bottom: 30px;
   }
 
-  .editTour__section {
+  .formTour__section {
     scroll-margin-top: 80px;
     margin-bottom: 80px;
 
@@ -79,22 +80,22 @@
       @include scrollbar;
     }
 
-    .editTour__section-title {
+    .formTour__section-title {
       font-size: 30px;
       margin-bottom: 30px;
     }
 
-    .editTour__form {
+    .formTour__form {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 35px;
 
-      .editTour__field {
+      .formTour__field {
         display: flex;
         flex-direction: column;
       }
 
-      .editTour__btn {
+      .formTour__btn {
         grid-column: 2/3;
         background-color: $krasnyy;
         color: $belyy;
@@ -105,16 +106,16 @@
       }
     }
 
-    .editTour__field {
+    .formTour__field {
       grid-column: 1/4;
 
-      .editTour__field-inputs {
+      .formTour__field-inputs {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
       }
 
-      .editTour__field-row {
+      .formTour__field-row {
         display: flex;
         flex-direction: column;
         gap: 30px;
@@ -124,7 +125,7 @@
         // }
       }
 
-      .editTour__field-detail {
+      .formTour__field-detail {
         display: flex;
         align-items: flex-end;
         gap: 10px;
@@ -152,7 +153,7 @@
         }
       }
 
-      .editTour__field-btns {
+      .formTour__field-btns {
         display: flex;
         align-items: center;
         gap: 20px;
@@ -165,7 +166,7 @@
           color: $belyy;
         }
 
-        .editTour__field-btn--add {
+        .formTour__field-btn--add {
           background-color: $krasnyy;
           transition: background-color 0.2s ease-in, filter 0.2s ease-in;
           &:hover {
@@ -177,7 +178,7 @@
           }
         }
 
-        .editTour__field-btn--remove {
+        .formTour__field-btn--remove {
           background-color: $chernyy;
           transition: background-color 0.2s ease-in, filter 0.2s ease-in;
 
@@ -190,7 +191,7 @@
           }
         }
 
-        .editTour__all-btn--add {
+        .formTour__all-btn--add {
           background-color: $belyy;
           border: 2px solid $krasnyy;
           color: $chernyy;
@@ -203,7 +204,7 @@
         }
       }
 
-      .editTour__block-btn {
+      .formTour__block-btn {
         grid-column: 1/4;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -226,7 +227,7 @@
       }
     }
 
-    .editTour__dropdown {
+    .formTour__dropdown {
       position: relative;
       border: 1px solid $liniya;
       padding: 10px 5px 11px 26px;
@@ -249,12 +250,12 @@
         }
       }
 
-      .editTour__dropdown-value {
+      .formTour__dropdown-value {
         display: flex;
         gap: 5px;
       }
 
-      .editTour__dropdown-list-wrapper {
+      .formTour__dropdown-list-wrapper {
         position: absolute;
         top: 48px;
         left: 0;
@@ -275,12 +276,12 @@
         }
       }
 
-      .editTour__dropdown-list {
+      .formTour__dropdown-list {
         display: flex;
         flex-direction: column;
         padding: 10px 0;
 
-        .editTour__dropdown-item {
+        .formTour__dropdown-item {
           padding: 5px 0px 5px 26px;
 
           &:hover {
@@ -301,15 +302,15 @@
     }
   }
 
-  .editTour__basic {
-    .editTour__field {
+  .formTour__basic {
+    .formTour__field {
       grid-column: inherit;
     }
 
-    .editTour__field-price {
+    .formTour__field-price {
       grid-column: 1/4;
 
-      .editTour__price-inputs {
+      .formTour__price-inputs {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 35px;
@@ -321,8 +322,8 @@
     }
   }
 
-  .editTour__images {
-    .editTour__images-field-row {
+  .formTour__images {
+    .formTour__images-field-row {
       grid-column: 1/4;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -334,9 +335,8 @@
     }
   }
 
-  .editTour__all {
-
-    .editTour__field {
+  .formTour__all {
+    .formTour__field {
       grid-column: inherit;
       gap: 30px;
       input {
@@ -344,11 +344,11 @@
       }
     }
 
-    .editTour__all-advantages {
+    .formTour__all-advantages {
       height: 100%;
       margin-bottom: 16px;
 
-      .editTour__all-textarea {
+      .formTour__all-textarea {
         border: 1px solid $liniya;
         border-radius: 30px;
         padding: 15px;
@@ -357,7 +357,7 @@
       }
     }
 
-    .editTour__field-all {
+    .formTour__field-all {
       grid-column: 2/4;
     }
   }

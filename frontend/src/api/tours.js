@@ -56,7 +56,7 @@ export const createTour = async (tourData) => {
     const response = await axios.post(API_URL, tourData);
     return response.data;
   } catch (error) {
-    console.error("Ошибка при создании тура:", error);
+    alert(`Ошибка при создании тура: ${error.response.data.error}`);
   }
 };
 

@@ -33,12 +33,12 @@ export default function TourBasicInfoForm({
   });
 
   return (
-    <section className="editTour__basic editTour__section" id="basic">
-      <h1 className="editTour__title">Редактировать {formData.sub_title}</h1>
+    <section className="formTour__basic formTour__section" id="basic">
+      <h1 className="formTour__title">Новый Тур</h1>
       <div className="container">
-        <h2 className="editTour__section-title">Основные:</h2>
-        <form onSubmit={handleSubmit} className="editTour__form">
-          <div className="editTour__field">
+        <h2 className="formTour__section-title">Основные:</h2>
+        <form onSubmit={handleSubmit} className="formTour__form">
+          <div className="formTour__field">
             <label htmlFor="title">Заголовок:</label>
             <input
               id="title"
@@ -47,7 +47,7 @@ export default function TourBasicInfoForm({
               placeholder="Title"
             />
           </div>
-          <div className="editTour__field">
+          <div className="formTour__field">
             <label htmlFor="sud_title">Второй Заголовок:</label>
             <input
               id="sud_title"
@@ -56,7 +56,7 @@ export default function TourBasicInfoForm({
               placeholder="Sub_title"
             />
           </div>
-          <div className="editTour__field">
+          <div className="formTour__field">
             <label htmlFor="season">Сезон:</label>
             <input
               id="season"
@@ -65,27 +65,27 @@ export default function TourBasicInfoForm({
               placeholder="season"
             />
           </div>
-          <div className="editTour__field">
+          <div className="formTour__field">
             <label>Рейтинг:</label>
             <div
-              className={`editTour__dropdown ${ratingOpen ? "focus" : ""}`}
+              className={`formTour__dropdown ${ratingOpen ? "focus" : ""}`}
               onClick={() => setRatingOpen(!ratingOpen)}
               ref={ratingBlock}
             >
-              <div className="editTour__dropdown-value">
+              <div className="formTour__dropdown-value">
                 <span>{formData.rating}</span>
                 <img src={RatingImg} alt="" />
               </div>
               <div
-                className={`editTour__dropdown-list-wrapper ${
+                className={`formTour__dropdown-list-wrapper ${
                   ratingOpen ? "open" : ""
                 }`}
               >
-                <ul className="editTour__dropdown-list">
+                <ul className="formTour__dropdown-list">
                   {ratingValue.map((rating, key) => (
                     <li
                       key={key}
-                      className={`editTour__dropdown-item ${
+                      className={`formTour__dropdown-item ${
                         formData.rating === rating ? "active" : ""
                       }`}
                       onClick={() => handleChange("rating", rating)}
@@ -98,28 +98,32 @@ export default function TourBasicInfoForm({
               </div>
             </div>
           </div>
-          <div className="editTour__field">
+          <div className="formTour__field">
             <label>мин. Дней Пребывания:</label>
             <div
-              className={`editTour__dropdown ${durationMinOpen ? "focus" : ""}`}
+              className={`formTour__dropdown ${durationMinOpen ? "focus" : ""}`}
               onClick={() => setDurationMinOpen(!durationMinOpen)}
               ref={durationMinBlock}
             >
-              <div className="editTour__dropdown-value">
+              <div className="formTour__dropdown-value">
                 <span>{formData.duration_min} дней</span>
               </div>
               <div
-                className={`editTour__dropdown-list-wrapper ${
+                className={`formTour__dropdown-list-wrapper ${
                   durationMinOpen ? "open" : ""
                 }`}
               >
-                <ul className="editTour__dropdown-list">
+                <ul className="formTour__dropdown-list">
                   {durationMinValue
-                    .filter((days) => days < Number(formData.duration_max))
+                    .filter((days) =>
+                      formData.duration_max
+                        ? days < Number(formData.duration_max)
+                        : true
+                    )
                     .map((days, key) => (
                       <li
                         key={key}
-                        className={`editTour__dropdown-item ${
+                        className={`formTour__dropdown-item ${
                           formData.duration_min === days ? "active" : ""
                         }`}
                         onClick={() => handleChange("duration_min", days)}
@@ -131,28 +135,32 @@ export default function TourBasicInfoForm({
               </div>
             </div>
           </div>
-          <div className="editTour__field">
+          <div className="formTour__field">
             <label>макс. Дней Пребывания:</label>
             <div
-              className={`editTour__dropdown ${durationMaxOpen ? "focus" : ""}`}
+              className={`formTour__dropdown ${durationMaxOpen ? "focus" : ""}`}
               onClick={() => setDurationMaxOpen(!durationMaxOpen)}
               ref={durationMaxBlock}
             >
-              <div className="editTour__dropdown-value">
+              <div className="formTour__dropdown-value">
                 <span>{formData.duration_max} дней</span>
               </div>
               <div
-                className={`editTour__dropdown-list-wrapper ${
+                className={`formTour__dropdown-list-wrapper ${
                   durationMaxOpen ? "open" : ""
                 }`}
               >
-                <ul className="editTour__dropdown-list">
+                <ul className="formTour__dropdown-list">
                   {durationMaxValue
-                    .filter((days) => days > Number(formData.duration_min))
+                    .filter((days) =>
+                      formData.duration_min
+                        ? days > Number(formData.duration_min)
+                        : true
+                    )
                     .map((days, key) => (
                       <li
                         key={key}
-                        className={`editTour__dropdown-item ${
+                        className={`formTour__dropdown-item ${
                           formData.duration_max === days ? "active" : ""
                         }`}
                         onClick={() => handleChange("duration_max", days)}
@@ -164,8 +172,8 @@ export default function TourBasicInfoForm({
               </div>
             </div>
           </div>
-          <div className="editTour__field editTour__field-price">
-            <div className="editTour__price-inputs">
+          <div className="formTour__field formTour__field-price">
+            <div className="formTour__price-inputs">
               {Object.entries(formData.pricesByDuration).map(
                 ([days, price]) => (
                   <div key={days}>
@@ -190,7 +198,7 @@ export default function TourBasicInfoForm({
               )}
             </div>
           </div>
-          <button className="editTour__btn" type="submit">
+          <button className="formTour__btn" type="submit">
             Сохранить
           </button>
         </form>
