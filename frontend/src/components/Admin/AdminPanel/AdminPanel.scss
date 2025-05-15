@@ -58,6 +58,12 @@
 
       .table__col {
         background-color: initial;
+        cursor: pointer;
+
+        &:last-child,
+        &:first-child {
+          cursor: inherit;
+        }
       }
     }
 
@@ -69,10 +75,27 @@
       &:first-child {
         background-color: $krasnyy;
         margin-right: 5px;
+        transition: background-color 0.2s ease-in, filter 0.2s ease-in;
+        &:hover {
+          background-color: #dd1a21;
+        }
+
+        &:active {
+          filter: brightness(90%);
+        }
       }
 
       &:last-child {
         background-color: $chernyy;
+        transition: background-color 0.2s ease-in, filter 0.2s ease-in;
+
+        &:hover {
+          background-color: #2e2b2b;
+        }
+
+        &:active {
+          filter: brightness(90%);
+        }
       }
     }
   }

@@ -1,82 +1,69 @@
 import Swiper from "../../Swiper/Swiper";
 import ToursSlide from "./ToursSlide";
-import { SlideTours } from "../../../data/data";
+import { getTours } from "@/api/tours";
+import { useEffect, useState } from "react";
 import "./Tours.scss";
 
+import { motion } from "framer-motion";
+import { useLoading } from "@/context/LoadingContext";
+
 export default function Tours() {
-  const slides = [
-    <ToursSlide
-      days={SlideTours[5].days}
-      price={SlideTours[5].price}
-      country={SlideTours[5].country}
-      city={SlideTours[5].city}
-      date={SlideTours[5].date}
-      img={SlideTours[5].img}
-    />,
-    <ToursSlide
-      days={SlideTours[5].days}
-      price={SlideTours[5].price}
-      country={SlideTours[5].country}
-      city={SlideTours[5].city}
-      date={SlideTours[5].date}
-      img={SlideTours[5].img}
-    />,
-    <ToursSlide
-      days={SlideTours[5].days}
-      price={SlideTours[5].price}
-      country={SlideTours[5].country}
-      city={SlideTours[5].city}
-      date={SlideTours[5].date}
-      img={SlideTours[5].img}
-    />,
-    <ToursSlide
-      days={SlideTours[4].days}
-      price={SlideTours[4].price}
-      country={SlideTours[4].country}
-      city={SlideTours[4].city}
-      date={SlideTours[4].date}
-      img={SlideTours[4].img}
-    />,
-    <ToursSlide
-      days={SlideTours[3].days}
-      price={SlideTours[3].price}
-      country={SlideTours[3].country}
-      city={SlideTours[3].city}
-      date={SlideTours[3].date}
-      img={SlideTours[3].img}
-    />,
-    <ToursSlide
-      days={SlideTours[2].days}
-      price={SlideTours[2].price}
-      country={SlideTours[2].country}
-      city={SlideTours[2].city}
-      date={SlideTours[2].date}
-      img={SlideTours[2].img}
-    />,
-    <ToursSlide
-      days={SlideTours[1].days}
-      price={SlideTours[1].price}
-      country={SlideTours[1].country}
-      city={SlideTours[1].city}
-      date={SlideTours[1].date}
-      img={SlideTours[1].img}
-    />,
-    <ToursSlide
-      days={SlideTours[0].days}
-      price={SlideTours[0].price}
-      country={SlideTours[0].country}
-      city={SlideTours[0].city}
-      date={SlideTours[0].date}
-      img={SlideTours[0].img}
-    />,
-  ];
+  const { isLoading, setIsLoading } = useLoading();
+  const [tours, setTours] = useState([]);
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      setIsLoading(true);
+      try {
+        const response = await getTours();
+        setTours(response);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Ошибочка", error);
+      }
+    };
+    fetchTours();
+  }, []);
+
+  const tourSlides = isLoading
+    ? Array.from({ length: 5 }).map((_, index) => (
+        <div key={index}>
+          <ToursSlide isLoading={isLoading} />
+        </div>
+      ))
+    : tours
+        .filter((tour) => tour.season === "Горящие туры")
+        .map((tour, index) => (
+          <motion.div
+            key={tour.id}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+            variants={{
+              hidden: { opacity: 0, x: 20 },
+              visible: { opacity: 1, x: 0 },
+            }}
+          >
+            <ToursSlide
+              id={tour.id}
+              days={tour.duration_min}
+              price={tour.pricesByDuration[6]}
+              country={tour.title}
+              city={tour.sub_title}
+              img={tour.imges?.[0]?.image_url[0]}
+              isLoading={isLoading}
+            />
+          </motion.div>
+        ));
+
   return (
     <section className="tours">
       <div className="container-right">
         <h2 className="tours__title">горящие туры</h2>
         <span className="tours__subtitle">Поймайте момент</span>
         <div className="tours__swiper">
-          <Swiper slides={slides} spaceBetween={36} slidesPerView={5.3} />
+          <Swiper slides={tourSlides} spaceBetween={36} slidesPerView={5.3} />
         </div>
       </div>
     </section>

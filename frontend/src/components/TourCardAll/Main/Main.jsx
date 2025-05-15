@@ -18,6 +18,7 @@ export default function Main({ tour }) {
           <div className="main__numbers">
             <h2 className="main__subtitle">доступные номера</h2>
             <ul className="main__numbers-list">
+              {console.log(tour)}
               {tour.rooms &&
                 tour.rooms.map((room, index) => (
                   <li key={index} className="main__numbers-item">

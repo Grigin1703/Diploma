@@ -180,7 +180,7 @@ export default function Hero({ tour }) {
           </div>
           <div className="hero__price-block">
             <span>
-              <strong>{tour.price.toLocaleString("ru-Ru") + "₽"}</strong> / за 1
+              <strong>{tour.pricesByDuration[6].toLocaleString("ru-Ru") + "₽"}</strong> / за 1
               человека
             </span>
           </div>

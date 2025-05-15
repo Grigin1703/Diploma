@@ -8,6 +8,13 @@ import {
   getByIdTour,
   getAirportsByCity,
   loginAdminService,
+  getAllNews,
+  getNewsById,
+  createNewsService,
+  updateNewsService,
+  deleteNewsService,
+  sendMail,
+  getHotTours,
 } from "./toursService.js";
 
 export const createTour = asyncHandler(async (req, res) => {
@@ -77,4 +84,52 @@ export const loginAdminController = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
   const { token } = await loginAdminService(username, password);
   res.json({ token });
+});
+
+export const getNews = asyncHandler(async (req, res) => {
+  const news = await getAllNews();
+  res.json(news);
+});
+
+export const getNewsId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const news = await getNewsById(id);
+  return res.json(news);
+});
+
+export const createNews = asyncHandler(async (req, res) => {
+  const newsData = req.body;
+  const news = await createNewsService(newsData);
+  return res.json(news);
+});
+
+export const updateNews = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const updatedData = req.body;
+  const updatedNews = await updateNewsService(id, updatedData);
+  res.json(updatedNews);
+});
+
+export const deleteNews = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const deletedNews = await deleteNewsService(id);
+  res.json(deletedNews);
+});
+
+export const handleSubscribe = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const hotTours = await getHotTours(); // Выбираем hot tours
+  const tourList = hotTours
+    .map((t) => `<li>${t.title} — от ${t.pricesByDuration[6]}₽</li>`)
+    .join("");
+
+  const html = `
+    <h2>🔥 Горящие туры</h2>
+    <ul>${tourList}</ul>
+  `;
+
+  await sendMail(email, "Горящие туры", "Смотрите лучшие предложения!", html);
+
+  res.status(200).json({ message: "Письмо отправлено!" });
 });

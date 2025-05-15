@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@pbe/react-yandex-maps": "^1.2.5",
     "@svgr/rollup": "^8.1.0",
     "axios": "^1.8.4",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.11.0",
     "nanoid": "^5.1.5",
+    "nodemailer": "^7.0.3",
     "react": "^18.2.0",
     "react-datepicker": "^8.0.0",
     "react-dom": "^18.2.0",
+    "react-loading-skeleton": "^3.5.0",
     "react-router-dom": "^7.1.1",
     "react-select": "^5.10.0",
     "react-slider": "^2.0.6",

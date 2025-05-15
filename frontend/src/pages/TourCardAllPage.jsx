@@ -8,7 +8,6 @@ import Main from "@/components/TourCardAll/Main/Main";
 export default function TourCardAll() {
   const { id } = useParams();
   const [tour, setTour] = useState(null);
-  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchTour = async () => {

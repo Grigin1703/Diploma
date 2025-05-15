@@ -112,3 +112,37 @@ export const loginAdmin = async (username, password) => {
     throw new Error(message);
   }
 };
+
+export const getNews = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/news`);
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при получении туров", err);
+    return [];
+  }
+};
+
+export const getIdNews = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}/news/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при получения новости:", error);
+  }
+};
+
+export const handleSubscribe = async (email) => {
+  if (!email) {
+    alert("Введите email!");
+    return;
+  }
+
+  try {
+    await axios.post(`${API_URL}/subscribe`, { email });
+    alert("Письмо отправлено!");
+  } catch (error) {
+    console.error("Ошибка при отправке:", error);
+    alert("Ошибка. Попробуйте снова.");
+  }
+};

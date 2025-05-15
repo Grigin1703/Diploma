@@ -98,7 +98,7 @@ export default function Dropdawn({ isOpen, closeMenu, buttonRef }) {
             <h3 className="dropdawn__title">компания</h3>
           </li>
           <li className="dropdawn__item">
-            <Link to="/" className="dropdawn__link">
+            <Link to="/About" className="dropdawn__link">
               О нас
             </Link>
           </li>
@@ -108,12 +108,12 @@ export default function Dropdawn({ isOpen, closeMenu, buttonRef }) {
             </Link>
           </li>
           <li className="dropdawn__item">
-            <Link to="/" className="dropdawn__link">
+            <Link to="/Contact" className="dropdawn__link">
               Контакты
             </Link>
           </li>
           <li className="dropdawn__item">
-            <Link to="/" className="dropdawn__link">
+            <Link to="/News" className="dropdawn__link">
               Новости
             </Link>
           </li>

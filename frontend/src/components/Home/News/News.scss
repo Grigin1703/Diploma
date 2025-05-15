@@ -24,12 +24,18 @@
     gap: 32px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, auto);
+
+    a {
+      color: $belyy;
+    }
   }
 
   .news__grid-block {
-    color: $belyy;
     height: 256px;
     border-radius: 30px;
+    .news__grid-wrapper{
+      height: 100%;
+    }
   }
 
   .news__grid-block:nth-child(1) {

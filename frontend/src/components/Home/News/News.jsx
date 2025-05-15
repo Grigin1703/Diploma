@@ -1,105 +1,87 @@
 import WhiteLine from "../../../assets/icons/white-line.svg";
-import { NewsBg } from "../../../data/data";
+import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { getNews } from "@/api/tours";
 import "./News.scss";
 
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { motion } from "framer-motion";
+import { useLoading } from "@/context/LoadingContext";
+
 export default function News() {
+  const { isLoading } = useLoading();
+  const [news, setNews] = useState([]);
+  const newsRef = useRef();
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const data = await getNews();
+        setNews(data);
+      } catch (err) {
+        console.error("Ошибка", err);
+      }
+    };
+    fetchNews();
+  }, []);
+
   return (
-    <section className="news">
+    <section className="news" ref={newsRef}>
       <div className="container">
         <h2 className="news__title">новости</h2>
         <span className="news__subtitle">события в мире туризма</span>
         <div className="news__grid">
-          <div
-            className="news__grid-block news__grid-block_big"
-            style={{ backgroundImage: `url(${NewsBg[0].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                отдых с детьми:
-                <br />
-                о чем нужно
-                <br />
-                помнить <br />в путешествии
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            className="news__grid-block"
-            style={{ backgroundImage: `url(${NewsBg[1].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                ТОП-10 уникальных и завораживающих мест в ОАЭ
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            className="news__grid-block"
-            style={{ backgroundImage: `url(${NewsBg[2].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                Отдых, близкий к природе и экологии
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            className="news__grid-block"
-            style={{ backgroundImage: `url(${NewsBg[3].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                богатство культурных и исторических сокровищ разных стран
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            className="news__grid-block news__grid-block_big"
-            style={{ backgroundImage: `url(${NewsBg[4].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                Как сделать <br />
-                путешествие <br />
-                незабываемым <br />
-                для всех
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
-          <div
-            className="news__grid-block"
-            style={{ backgroundImage: `url(${NewsBg[5].imgBg})` }}
-          >
-            <div className="news__grid-content">
-              <h4 className="news__grid-title">
-                путешествия, которые приведут вас в мир высот, глубин и скорости
-              </h4>
-              <div className="news__grid-read">
-                <span>читать</span>
-                <img src={WhiteLine} alt="" />
-              </div>
-            </div>
-          </div>
+          {isLoading || news.length === 0
+            ? Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className={`news__grid-block ${
+                    index === 0 || index === 4 ? "news__grid-block_big" : ""
+                  }`}
+                >
+                  <div className="news__grid-wrapper">
+                    <div className="news__grid-content">
+                      <h4 className="news__grid-title">
+                        <Skeleton height={80} width="100%" />
+                      </h4>
+                      <div className="news__grid-read">
+                        <span style={{ color: "white" }}>читать</span>
+                        <img src={WhiteLine} alt="" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            : news.slice(0, 6).map((item, index) => (
+                <motion.div
+                  key={index}
+                  whileInView="visible"
+                  initial="hidden"
+                  viewport={{ amount: 0.25 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  variants={{
+                    hidden: { opacity: 0, x: 20 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                  className={`news__grid-block ${
+                    index == 0 || index == 4 ? "news__grid-block_big" : ""
+                  } `}
+                  style={{ backgroundImage: `url(${item.image})` }}
+                >
+                  <Link to={`/tours/news/${item.id}`}>
+                    <div className="news__grid-wrapper">
+                      <div className="news__grid-content">
+                        <h4 className="news__grid-title">{item.title}</h4>
+                        <div className="news__grid-read">
+                          <span>читать</span>
+                          <img src={WhiteLine} alt="" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
         </div>
       </div>
     </section>

@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model News {
+  id        Int      @id @default(autoincrement())
+  title     String
+  image     String
+  content   Json
+  createdAt DateTime @default(now())
+}
+
 model City {
   id       Int       @id @default(autoincrement())
   name     String

@@ -26,7 +26,7 @@ const ToursCard = ({
 
   const navigate = useNavigate();
   const handlClick = (id) => {
-    navigate(`/Tours/${id}`);
+    navigate(`/tours/${id}`);
   };
 
   useEffect(() => {
@@ -165,7 +165,7 @@ const ToursCard = ({
                   </div>
                   <div className="toursCard__price">
                     <p>
-                      <strong>{tour.price}₽</strong> / за 1
+                      <strong>{tour.pricesByDuration[6]}₽</strong> / за 1
                     </p>
                     <Button
                       children={"подробнее"}

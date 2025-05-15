@@ -1,6 +1,7 @@
 import { prisma } from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 // Функция для создания нового тура
 export const createTourService = async (tourData) => {
@@ -116,4 +117,73 @@ export const loginAdminService = async (username, password) => {
     { expiresIn: "1h" }
   );
   return { token };
+};
+
+// Функция для получения всех новостей
+export const getAllNews = async () => {
+  const news = await prisma.news.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return news;
+};
+
+//  Функция для получения новости по id
+export const getNewsById = async (id) => {
+  const idNumber = parseInt(id, 10);
+  return await prisma.news.findMany({
+    where: { id: idNumber },
+  });
+};
+
+//  Функция для создания новости
+export const createNewsService = async (data) => {
+  return await prisma.news.create({
+    data,
+  });
+};
+
+//  Функция для редактирования новости
+export const updateNewsService = async (id, data) => {
+  const idNumber = parseInt(id, 10);
+  return await prisma.news.update({
+    where: { id: idNumber },
+    data,
+  });
+};
+
+//  Функция для удаляния новости
+export const deleteNewsService = async (id) => {
+  const idNumber = parseInt(id, 10);
+  return await prisma.news.delete({
+    where: { id: idNumber },
+  });
+};
+
+// Отправка на почту
+const transporter = nodemailer.createTransport({
+  host: "smtp.yandex.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+export const sendMail = async (to, subject, text, html) => {
+  return await transporter.sendMail({
+    from: `"ГдеОтдых" <${process.env.EMAIL_USER}>`,
+    to,
+    subject,
+    text,
+    html,
+  });
+};
+
+// Только горящие туры
+export const getHotTours = async () => {
+  return await prisma.tours.findMany({
+    where: { season: "Горящие туры" },
+  });
 };

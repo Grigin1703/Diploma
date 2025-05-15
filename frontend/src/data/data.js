@@ -1,54 +1,3 @@
-export const SlideTours = [
-  {
-    days: "9 дней",
-    price: "от 25 000 ₽",
-    country: "Италия",
-    city: "им",
-    date: "10-15 ноября",
-    img: "/Home/ToursSlide/Them.webp",
-  },
-  {
-    days: "9 дней",
-    price: "от 25 000 ₽",
-    country: "оаэ",
-    city: "дубай",
-    date: "12-18 октября",
-    img: "/Home/ToursSlide/Dubai.webp",
-  },
-  {
-    days: "5 дней",
-    price: "от 80 000 ₽",
-    country: "Италия",
-    city: "рим",
-    date: "10-15 ноября",
-    img: "/Home/ToursSlide/Rome.webp",
-  },
-  {
-    days: "9 дней",
-    price: "от 25 000 ₽",
-    country: "Италия",
-    city: "флоренция",
-    date: "12-18 октября",
-    img: "/Home/ToursSlide/Florence.webp",
-  },
-  {
-    days: "14 дней",
-    price: "от 95 000 ₽",
-    country: "турция",
-    city: "каппадокия",
-    date: "16-30 сентября",
-    img: "/Home/ToursSlide/Cappadocia.webp",
-  },
-  {
-    days: "9 дней",
-    price: "от 25 000 ₽",
-    country: "Италия",
-    city: "Венеция",
-    date: "12-18 октября",
-    img: "/Home/ToursSlide/Venice.webp",
-  },
-];
-
 export const SlideReviews = [
   {
     imgAvatar: "/Home/ReviewsSlide/1.png",
@@ -80,27 +29,6 @@ export const SlideReviews = [
   },
 ];
 
-export const NewsBg = [
-  {
-    imgBg: "/Home/News/1.png",
-  },
-  {
-    imgBg: "/Home/News/2.png",
-  },
-  {
-    imgBg: "/Home/News/3.png",
-  },
-  {
-    imgBg: "/Home/News/4.png",
-  },
-  {
-    imgBg: "/Home/News/5.png",
-  },
-  {
-    imgBg: "/Home/News/6.png",
-  },
-];
-
 export const HeroContent = [
   {
     imgBg: "/Home/Hero/bg.jpg",
@@ -124,6 +52,18 @@ export const HeroContent = [
     imgBg: "/Countries/Hero/bg-img.jpg",
     title: "страны",
     disc: "Исследуйте мир: Наши лучшие направления и страны для путешествий",
+    search: false
+  },
+  {
+    imgBg: "/Contact/bg.jpg",
+    title: "контакты",
+    disc: "Свяжитесь с нами и создайте свое незабываемое путешествие",
+    search: false
+  },
+  {
+    imgBg: "/About/bg.jpg",
+    title: "о нас",
+    disc: "Наши история и ценности: Ваш надежный проводник в мире путешествий",
     search: false
   },
 ];

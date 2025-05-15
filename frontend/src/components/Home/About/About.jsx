@@ -1,10 +1,10 @@
 import "./about.scss";
-import Img1 from '../../../assets/images/home/about/img-1.png';
-import Img2 from '../../../assets/images/home/about/img-2.png';
-import Vk from '../../../assets/icons/vk.svg';
-import Ok from '../../../assets/icons/ok.svg';
-import Telegram from '../../../assets/icons/telegram.svg';
-import Whatsapp from '../../../assets/icons/whatsapp.svg';
+import Img1 from "@/assets/images/home/about/img-1.png";
+import Img2 from "@/assets/images/home/about/img-2.png";
+import Vk from "@/assets/icons/vk.svg";
+import Ok from "@/assets/icons/ok.svg";
+import Telegram from "@/assets/icons/telegram.svg";
+import Whatsapp from "@/assets/icons/whatsapp.svg";
 
 export default function About() {
   return (
@@ -12,7 +12,9 @@ export default function About() {
       <div className="container">
         <div className="about__title-block">
           <h2 className="about__title">о нас</h2>
-          <span className="about__subtitle">Вдохновляем мир на путешествия</span>
+          <span className="about__subtitle">
+            Вдохновляем мир на путешествия
+          </span>
         </div>
         <div className="about__content">
           <div className="about__block">

@@ -1,7 +1,6 @@
 import "./Hero.scss";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-// import { useSearchParams } from "react-router-dom";
 
 import { RussianCities } from "@/data/dataCity";
 import { Countries, TopCountries } from "@/data/dataCountries";
@@ -16,10 +15,6 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function Hero({ imgBg, title, disc, search }) {
   const location = useLocation();
   const navigate = useNavigate();
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const [country, setCountry] = useState(searchParams.get("country") || "");
-  // const [duration, setDuration] = useState(searchParams.get("duration") || "");
 
   const [departureSelect, setDepartureSelect] = useState(() => {
     return localStorage.getItem("departure") || RussianCities[0];
@@ -49,7 +44,7 @@ export default function Hero({ imgBg, title, disc, search }) {
   });
   const [touristsOpen, setTouristsOpen] = useState(false);
   const touristsRef = useRef(null);
-  
+
   const incrementTourists = () => setTourists((prev) => prev + 1);
   const decrementTourists = () =>
     setTourists((prev) => (prev > 1 ? prev - 1 : 1));
@@ -108,7 +103,7 @@ export default function Hero({ imgBg, title, disc, search }) {
     <section className="hero" style={{ backgroundImage: `url(${imgBg})` }}>
       <div className="container hero__container">
         <h1 className="hero__title">{title}</h1>
-        <span className="hero__subtitle">{disc}</span>
+        {disc && <span className="hero__subtitle">{disc}</span>}
 
         <div className={`search ${search ? "" : "none"}`}>
           <div className="search__departure">
