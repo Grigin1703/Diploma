@@ -1,0 +1,93 @@
+.orderModal {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+
+  &__content {
+    background-color: $belyy;
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 30px;
+  }
+
+  .orderModal__title {
+    text-align: center;
+    font-size: 35px;
+    margin-bottom: 20px;
+  }
+
+  .orderModal__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .orderModal__info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 18px;
+    width: 190%;
+  }
+
+  .orderModal__info-header {
+    display: flex;
+    justify-content: space-between;
+    span {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .orderModal__info-hotel {
+    display: flex;
+    gap: 10px;
+    span {
+      display: flex;
+      gap: 10px;
+
+      &:last-child {
+        gap: 5px;
+      }
+    }
+  }
+
+  .orderModal__info-details {
+    display: flex;
+    flex-direction: column;
+    span {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .orderModal__info-conditions {
+    display: flex;
+    flex-direction: column;
+    span {
+      display: flex;
+      gap: 10px;
+    }
+  }
+
+  .orderModal__btn {
+    display: block;
+    color: $belyy;
+    background-color: $krasnyy;
+    font-size: 18px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-radius: 30px;
+    width: 40%;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+}

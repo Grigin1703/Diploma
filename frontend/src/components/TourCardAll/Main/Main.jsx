@@ -1,6 +1,8 @@
 import "./Main.scss";
 import UserIcon from "@/assets/icons/user.svg";
 
+
+
 export default function Main({ tour }) {
   return (
     <section className="main">
@@ -249,7 +251,7 @@ export default function Main({ tour }) {
               </ul>
             </div>
           </div>
-          
+
           <div className="main__food">
             <h2 className="main__subtitle">Еда</h2>
             {tour.mealPlans &&

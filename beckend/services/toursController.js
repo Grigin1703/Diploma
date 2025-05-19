@@ -15,6 +15,7 @@ import {
   deleteNewsService,
   sendMail,
   getHotTours,
+  createOrder,
 } from "./toursService.js";
 
 export const createTour = asyncHandler(async (req, res) => {
@@ -132,4 +133,32 @@ export const handleSubscribe = asyncHandler(async (req, res) => {
   await sendMail(email, "Горящие туры", "Смотрите лучшие предложения!", html);
 
   res.status(200).json({ message: "Письмо отправлено!" });
+});
+
+export const creatOrder = asyncHandler(async (req, res) => {
+  const {
+    name,
+    email,
+    phone,
+    tourId,
+    tourTitle,
+    tourPrice,
+    tourNights,
+    tourTourists,
+  } = req.body;
+
+  if (!name || !email || !phone) {
+    return res.status(400).json({ message: "Введите имя, почту и телефон" });
+  }
+  const newOrder = await createOrder({
+    name,
+    email,
+    phone,
+    tourId,
+    tourTitle,
+    tourPrice: Number(tourPrice),
+    tourNights: Number(tourNights),
+    tourTourists: Number(tourTourists),
+  });
+  res.status(201).json({ message: "Заявка успешно создана", order: newOrder });
 });

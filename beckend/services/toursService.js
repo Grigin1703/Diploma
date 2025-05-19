@@ -187,3 +187,11 @@ export const getHotTours = async () => {
     where: { season: "Горящие туры" },
   });
 };
+
+
+// Функция для создания заказа
+export const createOrder = async (data) => {
+    return await prisma.order.create({
+    data,
+  });
+}

@@ -12,7 +12,8 @@ import {
   createNews,
   updateNews,
   deleteNews,
-  handleSubscribe
+  handleSubscribe,
+  creatOrder
 } from "./toursController.js";
 
 const router = express.Router();
@@ -43,5 +44,7 @@ router.delete("/news/:id", deleteNews);
 router.post("/login", loginAdminController);
 
 router.post("/subscribe", handleSubscribe);
+
+router.post("/order", creatOrder);
 
 export default router;

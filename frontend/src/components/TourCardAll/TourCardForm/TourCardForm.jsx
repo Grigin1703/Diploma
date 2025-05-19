@@ -2,7 +2,7 @@ import "./TourCardForm.scss";
 import ButtonIcon from "@/assets/icons/arrow-white.svg";
 import Button from "@/components/Button/Button";
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { getAirportsByCity } from "@/api/tours.js";
 import Swiper from "@/components/Swiper/Swiper";
 import DatePicker from "react-datepicker";
@@ -10,7 +10,12 @@ import { ru } from "date-fns/locale";
 import { format, addDays } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function TourForm({ pricesByDuration, rooms, foods }) {
+export default function TourForm({
+  pricesByDuration,
+  rooms,
+  foods,
+  openModal,
+}) {
   const [touristsDropdown, setTouristsDropdown] = useState(false);
   const formTourists = useRef(null);
   const [tourists, setTourists] = useState(() => {
@@ -88,6 +93,7 @@ export default function TourForm({ pricesByDuration, rooms, foods }) {
       Number(selectedRoom?.price) +
       Number(priceAirport?.price)) *
     tempTourists;
+
   useEffect(() => {
     const fetchAirports = async () => {
       getAirportsByCity(cityFrom).then((data) => {
@@ -447,7 +453,7 @@ export default function TourForm({ pricesByDuration, rooms, foods }) {
           <strong className="form__result">
             ИТОГ: {total.toLocaleString("ru-Ru")}₽
           </strong>
-          <Button children={"оставить заявку"} icon={ButtonIcon} />
+          <Button children={"оставить заявку"} icon={ButtonIcon} onClick={openModal}/>
         </div>
       </div>
     </div>

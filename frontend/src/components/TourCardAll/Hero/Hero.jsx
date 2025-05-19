@@ -1,19 +1,15 @@
 import "./Hero.scss";
 import { useState, useEffect, useRef } from "react";
 import StarRating from "@/assets/icons/star1.svg";
-import TourForm from "../TourCardForm/TourCardForm";
-
 
 export default function Hero({ tour }) {
   const [imgMain, setImgMain] = useState(tour.imges?.[0].image_url?.[0]);
   const modalBlock = useRef(false);
   const modalBlockContent = useRef(false);
 
-
   const [fullscreenImg, setFullScreenImg] = useState(null);
   const modalBlockFullscreen = useRef(false);
   const modalBlockFullscreenContent = useRef(false);
-
 
   const handlClickImg = (img) => {
     setImgMain(img);
@@ -164,7 +160,6 @@ export default function Hero({ tour }) {
               </div>
             </div>
           </div>
-          <TourForm pricesByDuration={tour.pricesByDuration} rooms={tour.rooms} foods={tour.mealPlans}/>
         </div>
 
         <div className="hero__title-block">
@@ -180,8 +175,10 @@ export default function Hero({ tour }) {
           </div>
           <div className="hero__price-block">
             <span>
-              <strong>{tour.pricesByDuration[6].toLocaleString("ru-Ru") + "₽"}</strong> / за 1
-              человека
+              <strong>
+                {tour.pricesByDuration[6].toLocaleString("ru-Ru") + "₽"}
+              </strong>{" "}
+              / за 1 человека
             </span>
           </div>
         </div>

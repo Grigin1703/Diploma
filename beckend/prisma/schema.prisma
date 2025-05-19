@@ -7,6 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Order {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String
+  tourId       String
+  tourTitle    String
+  tourPrice    Int
+  tourNights   Int
+  tourTourists Int
+  createdAt    DateTime @default(now())
+}
+
 model News {
   id        Int      @id @default(autoincrement())
   title     String
