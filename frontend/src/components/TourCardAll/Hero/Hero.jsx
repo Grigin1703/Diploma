@@ -2,7 +2,7 @@ import "./Hero.scss";
 import { useState, useEffect, useRef } from "react";
 import StarRating from "@/assets/icons/star1.svg";
 
-export default function Hero({ tour }) {
+export default function Hero({ tour, getAverageRating }) {
   const [imgMain, setImgMain] = useState(tour.imges?.[0].image_url?.[0]);
   const modalBlock = useRef(false);
   const modalBlockContent = useRef(false);
@@ -167,19 +167,11 @@ export default function Hero({ tour }) {
           <h1 className="hero__title">{tour.sub_title}</h1>
           <div
             className="hero__rating-block"
-            data-rating={tour.user_rating_total}
+            data-rating={getAverageRating(tour.rating_details)}
           >
             {Array.from({ length: tour.rating }, (_, index) => (
               <img key={index} src={StarRating} alt="Star" />
             ))}
-          </div>
-          <div className="hero__price-block">
-            <span>
-              <strong>
-                {tour.pricesByDuration[6].toLocaleString("ru-Ru") + "₽"}
-              </strong>{" "}
-              / за 1 человека
-            </span>
           </div>
         </div>
       </div>

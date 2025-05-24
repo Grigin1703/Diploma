@@ -8,7 +8,8 @@ import { format, addDays } from "date-fns";
 import { ru } from "date-fns/locale";
 
 export default function OrderModal({ tour, isOpen, onClose }) {
-  const modalRef = useRef(null);
+  const modalBlock = useRef(null);
+  const modalContent = useRef(null);
   const days = Number(localStorage.getItem("days"));
   const tourists = localStorage.getItem("tourists");
   const room = localStorage.getItem("room");
@@ -46,44 +47,86 @@ export default function OrderModal({ tour, isOpen, onClose }) {
     return `${from} – ${to}`;
   };
 
-  useOutsideClick(modalRef, () => {
+  useOutsideClick(modalContent, () => {
     onClose();
+    document.body.style.overflow = "auto";
   });
+
+  useEffect(() => {
+    if (modalBlock.current) {
+      document.body.style.overflow = "hidden";
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="orderModal">
-      <div className="orderModal__content" ref={modalRef}>
+    <div className="orderModal" ref={modalBlock}>
+      <div className="orderModal__content" ref={modalContent}>
         <div className="container">
           <h2 className="orderModal__title">Оформление заказа</h2>
           <div className="orderModal__wrapper">
-            <OrderForm />
+            <div className="orderModal__header">
+              <OrderForm />
+              <strong>
+                ИТОГ: {tour.pricesByDuration[days].toLocaleString("ru-Ru")}₽
+              </strong>
+            </div>
             <div className="orderModal__info">
-              <div className="orderModal__info-header">
-                <span><strong>Тур:</strong>{tour.title}</span>
-                <strong>{tour.pricesByDuration[days].toLocaleString("ru-Ru")}₽</strong>
-              </div>
-              <div className="orderModal__info-hotel">
-                <span><strong>Отель:</strong>{tour.sub_title}</span>
-                <span>
-                  {tour.rating} <img src={RatingImg} alt="" />
-                </span>
-              </div>
               <div className="orderModal__info-details">
-                <span><strong>Вылет – Возврат:</strong>{formatFullRange(departureDate, days)}</span>
-                <span><strong>Дней:</strong>{days}</span>
-                <span><strong>Город вылета:</strong>{departure}</span>
-                <span><strong>Аэропорт:</strong>{airport}</span>
-              </div>
-              <div className="orderModal__info-conditions">
-                <span><strong>Номер:</strong>{room}</span>
-                <span><strong>Питание:</strong>{food}</span>
-                <span><strong>Туристы:</strong>{tourists} человека</span>
+                <span>
+                  <strong>Тур:</strong>
+                  <span className="dots"></span>
+                  {tour.title}
+                </span>
+                <span>
+                  <strong>Отель:</strong>
+                  <span className="dots"></span>
+                  {tour.sub_title} {tour.rating} <img src={RatingImg} alt="" />
+                </span>
+                <span>
+                  <strong>Номер:</strong>
+                  <span className="dots"></span>
+                  {room}
+                </span>
+                <span>
+                  <strong>Питание:</strong>
+                  <span className="dots"></span>
+                  {food}
+                </span>
+                <span>
+                  <strong>Туристы:</strong>
+                  <span className="dots"></span>
+                  {tourists == 1
+                    ? tourists + " человек"
+                    : tourists + " человека"}
+                </span>
+                <span>
+                  <strong>Дней:</strong>
+                  <span className="dots"></span>
+                  {days}
+                </span>
+                <span>
+                  <strong>Вылет – Возврат:</strong>
+                  <span className="dots"></span>
+                  {formatFullRange(departureDate, days)}
+                </span>
+                <span>
+                  <strong>Город вылета:</strong>
+                  <span className="dots"></span>
+                  {departure}
+                </span>
+                <span>
+                  <strong>Аэропорт:</strong>
+                  <span className="dots"></span>
+                  {airport}
+                </span>
               </div>
             </div>
           </div>
-          <button className="orderModal__btn">Оформить</button>
+          <button className="orderModal__btn" onClick={() => onClose(false)}>
+            Оформить
+          </button>
         </div>
       </div>
     </div>

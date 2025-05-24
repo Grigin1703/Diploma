@@ -1,10 +1,12 @@
 import "./Hero.scss";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { RussianCities } from "@/data/dataCity";
 import { Countries, TopCountries } from "@/data/dataCountries";
 import { Days } from "@/data/dataDays";
+
+import { useLocalStorageWithExpiry } from "@/utils/useLocalStorageWithExpiry";
 
 import Button from "@/components/Button/Button";
 import ButtonIcon from "@/assets/icons/arrow-white.svg";
@@ -16,32 +18,32 @@ export default function Hero({ imgBg, title, disc, search }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [departureSelect, setDepartureSelect] = useState(() => {
-    return localStorage.getItem("departure") || RussianCities[0];
-  });
+  const [departureSelect, setDepartureSelect] = useLocalStorageWithExpiry(
+    "departure",
+    RussianCities[0]
+  );
   const [departureOpen, setDepartureOpen] = useState(false);
   const departureRef = useRef(null);
 
-  const [countriesSelect, setCountriesSelect] = useState(() => {
-    return localStorage.getItem("countries") || "|";
-  });
+  const [countriesSelect, setCountriesSelect] = useLocalStorageWithExpiry(
+    "countries",
+    "..."
+  );
   const [countriesOpen, setCountriesOpen] = useState(false);
   const countriesRef = useRef(null);
 
-  const [daysSelect, setDaysSelect] = useState(() => {
-    return localStorage.getItem("days") || Days[0];
-  });
+  const [daysSelect, setDaysSelect] = useLocalStorageWithExpiry(
+    "days",
+    Days[0]
+  );
   const [daysOpen, setDaysOpen] = useState(false);
   const daysRef = useRef(null);
 
-  const [departureDate, setDepartureDate] = useState(() => {
-    const sevData = localStorage.getItem("departureDate");
-    return sevData ? new Date(sevData) : null;
-  });
-
-  const [tourists, setTourists] = useState(() => {
-    return Number(localStorage.getItem("tourists")) || 1;
-  });
+  const [departureDate, setDepartureDate] = useLocalStorageWithExpiry(
+    "departureDate",
+    new Date()
+  );
+  const [tourists, setTourists] = useLocalStorageWithExpiry("tourists", 1);
   const [touristsOpen, setTouristsOpen] = useState(false);
   const touristsRef = useRef(null);
 
@@ -49,16 +51,16 @@ export default function Hero({ imgBg, title, disc, search }) {
   const decrementTourists = () =>
     setTourists((prev) => (prev > 1 ? prev - 1 : 1));
 
-  useEffect(() => {
-    localStorage.setItem("departure", departureSelect);
-    localStorage.setItem("countries", countriesSelect);
-    localStorage.setItem(
-      "departureDate",
-      departureDate ? departureDate.toISOString() : ""
-    );
-    localStorage.setItem("days", daysSelect);
-    localStorage.setItem("tourists", tourists);
-  }, [departureSelect, countriesSelect, departureDate, daysSelect, tourists]);
+  // useEffect(() => {
+  //   localStorage.setItem("departure", departureSelect);
+  //   localStorage.setItem("countries", countriesSelect);
+  //   localStorage.setItem(
+  //     "departureDate",
+  //     departureDate ? departureDate.toISOString() : ""
+  //   );
+  //   localStorage.setItem("days", daysSelect);
+  //   localStorage.setItem("tourists", tourists);
+  // }, [departureSelect, countriesSelect, departureDate, daysSelect, tourists]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -98,6 +100,12 @@ export default function Hero({ imgBg, title, disc, search }) {
       console.error("Ошибка при получении туров:", error);
     }
   };
+
+  const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
+    <button className="custom-date-btn" onClick={onClick} ref={ref}>
+      {value ? value : "Выбрать дату"}
+    </button>
+  ));
 
   return (
     <section className="hero" style={{ backgroundImage: `url(${imgBg})` }}>
@@ -201,9 +209,10 @@ export default function Hero({ imgBg, title, disc, search }) {
               onChange={(data) => setDepartureDate(data)}
               dateFormat="dd.MM.yy"
               minDate={new Date()}
-              placeholderText="|"
+              placeholderText=""
               monthsShown={2}
               locale={ru}
+              customInput={<CustomInput />}
             />
           </div>
           <div className="search__days">

@@ -1,4 +1,5 @@
 import NewsFull from "@/components/NewsFull/NewsFull";
+import Footer from "@/components/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getIdNews } from "@/api/tours";
@@ -16,6 +17,7 @@ export default function NewsPage() {
   return (
     <div className="newsPage">
       <NewsFull news={news} />
+      <Footer/>
     </div>
   );
 }

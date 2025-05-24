@@ -4,7 +4,6 @@
     overflow-x: hidden;
     position: relative;
     min-height: 100vh;
-    padding-bottom: 100px;
   }
 
   .main__header {
@@ -160,6 +159,34 @@
     flex-direction: column;
     margin-left: 32px;
     margin-bottom: 40px;
+
+    .main__filter-amenities-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 20px;
+      margin-bottom: 23px;
+      h3 {
+        margin-bottom: 0;
+      }
+      button {
+        background-color: $krasnyy;
+        padding: 10px;
+        border-radius: 30px;
+        width: 100%;
+        max-width: 200px;
+        color: $belyy;
+        transition: background-color 0.2s ease-in;
+
+        &:hover {
+          background-color: #dd1a21;
+        }
+
+        &:active {
+          filter: brightness(105%);
+        }
+      }
+    }
 
     h3 {
       font-weight: 600;

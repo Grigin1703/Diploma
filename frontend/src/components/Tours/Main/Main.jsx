@@ -8,9 +8,11 @@ import ReactSlider from "react-slider";
 import ToursCard from "../ToursCard/ToursCard";
 import StarRating from "@/assets/icons/star1.svg";
 
-export default function Main() {
+export default function Main({ hotTours }) {
   const [seasons, setSeasons] = useState([]);
-  const [selectedSeasons, setSelectedSeasons] = useState([]);
+  const [selectedSeasons, setSelectedSeasons] = useState(
+    hotTours ? ["Горящие туры"] : []
+  );
 
   const [food, setFood] = useState([]);
   const [selectedFood, setSelectedFood] = useState([]);
@@ -108,7 +110,10 @@ export default function Main() {
       // Извлекаем уникальные значения
       setSeasons([...new Set(data.map((tour) => tour.season))]);
       setRatings([...new Set(data.map((tour) => tour.rating))]);
-      setFood([...new Set(data.map((tour) => tour.food))]);
+      const allMealTypes = data.flatMap((tour) =>
+        tour.mealPlans.map((plan) => plan.type)
+      );
+      setFood([...new Set(allMealTypes)]);
       setAmenities([...new Set(data.flatMap((tour) => tour.amenities))]);
     };
 
@@ -125,6 +130,7 @@ export default function Main() {
             <span></span>
           </button>
         </div>
+
         {/* Фильтр по сезону */}
         <div className="main__block-filter">
           <h3>предложение</h3>
@@ -183,26 +189,32 @@ export default function Main() {
         {/* Фильтр по рейтингу */}
         <div className="main__block-filter">
           <h3>Рейтинг отеля</h3>
-          {ratings.map((rating) => (
-            <label key={rating}>
-              <input
-                type="checkbox"
-                value={rating}
-                checked={selectedRatings.includes(Number(rating))}
-                onChange={handleRatingChange}
-              />
-              <span>
-                {rating} <img src={StarRating} alt="" />
-              </span>
-            </label>
-          ))}
+          {ratings
+            .sort((a, b) => b - a)
+            .map((rating) => (
+              <label key={rating}>
+                <input
+                  type="checkbox"
+                  value={rating}
+                  checked={selectedRatings.includes(Number(rating))}
+                  onChange={handleRatingChange}
+                />
+                <span>
+                  {rating} <img src={StarRating} alt="" />
+                </span>
+              </label>
+            ))}
         </div>
 
         <div className="main__block-filter">
-          <h3>Удобства</h3>
-          <button onClick={() => setStrictAmenities((prev) => !prev)}>
-            {strictAmenities ? "Все удобства" : "Любое удобство"}
-          </button>
+          <div className="main__filter-amenities-header">
+            <h3>Удобства</h3>
+            <button
+              onClick={() => setStrictAmenities((prev) => !prev)}
+            >
+              {strictAmenities ? "Все совпадения" : "Частичное совпадение"}
+            </button>
+          </div>
           {amenities.map((amenity) => (
             <label key={amenity}>
               <input

@@ -1,6 +1,7 @@
 import HeaderWithMenu from "@/components/HeaderWithMenu/HeaderWithMenu";
 import Hero from "@/components/Hero/Hero";
 import CountriesContent from "@/components/Countries/Countries";
+import Footer from "@/components/Footer/Footer";
 import { HeroContent } from "@/data/data";
 
 export default function Countries() {
@@ -16,6 +17,7 @@ export default function Countries() {
         />
         <CountriesContent/>
       </main>
+      <Footer/>
     </div>
   );
 }

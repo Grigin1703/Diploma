@@ -26,11 +26,7 @@ export default function Header({ toggleMenu, buttonRef }) {
             <img className="header__icon-btn-img" src={location} alt="" />
           </button>
         </div>
-        <button
-          className="dropdawn-btn"
-          onClick={toggleMenu}
-          ref={buttonRef} // ref передается из Home
-        >
+        <button className="dropdawn-btn" onClick={toggleMenu} ref={buttonRef}>
           <span></span>
           <span></span>
           <span></span>

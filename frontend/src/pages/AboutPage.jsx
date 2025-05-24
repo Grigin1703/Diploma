@@ -2,6 +2,7 @@ import HeaderWithMenu from "@/components/HeaderWithMenu/HeaderWithMenu";
 import Hero from "@/components/Hero/Hero";
 import Img1 from "@/assets/images/home/about/img-1.png";
 import Img2 from "@/assets/images/home/about/img-2.png";
+import Footer from "@/components/Footer/Footer";
 
 import { HeroContent } from "@/data/data";
 
@@ -61,6 +62,7 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
+      <Footer/>
     </div>
   );
 }

@@ -1,9 +1,13 @@
-.logo {
-    width: 160px;
-    height: 60px;
-    transition: filter 0.2s ease-in;
+.logo, .logo__footer {
+  width: 160px;
+  height: 60px;
+  transition: filter 0.2s ease-in;
+}
+
+.logo__footer{
+  filter: invert(1);
 }
 
 .logo:hover {
-    filter: brightness(150%);
+  filter: brightness(150%);
 }

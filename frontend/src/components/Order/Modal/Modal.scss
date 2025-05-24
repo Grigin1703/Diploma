@@ -1,10 +1,12 @@
 .orderModal {
-  position: absolute;
-  display: flex;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 100;
 
@@ -13,7 +15,7 @@
     width: 100%;
     max-width: 800px;
     margin: auto;
-    padding: 30px;
+    padding: 40px;
     border-radius: 30px;
   }
 
@@ -25,55 +27,35 @@
 
   .orderModal__wrapper {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 50px;
+
+    .orderModal__header {
+      width: 100%;
+      display: flex;
+      align-items: flex-end;
+      gap: 50px;
+      strong {
+        width: 30%;
+        font-size: 20px;
+      }
+    }
   }
 
   .orderModal__info {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    font-size: 18px;
-    width: 190%;
-  }
-
-  .orderModal__info-header {
-    display: flex;
-    justify-content: space-between;
-    span {
-      display: flex;
-      gap: 10px;
-    }
-  }
-
-  .orderModal__info-hotel {
-    display: flex;
-    gap: 10px;
-    span {
-      display: flex;
-      gap: 10px;
-
-      &:last-child {
-        gap: 5px;
-      }
-    }
+    width: 100%;
   }
 
   .orderModal__info-details {
     display: flex;
     flex-direction: column;
+    gap: 15px;
     span {
       display: flex;
-      gap: 10px;
-    }
-  }
-
-  .orderModal__info-conditions {
-    display: flex;
-    flex-direction: column;
-    span {
-      display: flex;
-      gap: 10px;
+      font-size: 20px;
     }
   }
 
@@ -89,5 +71,17 @@
     width: 40%;
     margin: 0 auto;
     margin-top: 30px;
+    transition: background-color 0.2s ease-in;
+
+    &:hover {
+      background-color: #dd1a21;
+    }
+  }
+
+  .dots {
+    flex: 1;
+    border-bottom: 3px dotted #000;
+    margin-left: 5px;
+    margin-bottom: 4px;
   }
 }

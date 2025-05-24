@@ -1,9 +1,24 @@
 import "./Main.scss";
 import UserIcon from "@/assets/icons/user.svg";
+import { useEffect } from "react";
 
+export default function Main({
+  tour,
+  getAverageRating,
+  setRoom,
+  room,
+  food,
+  setFood,
+  tourist,
+}) {
+  const handleRoomType = (type) => {
+    setRoom(type); // обновляем состояние
+  };
 
+  const handleFoodType = (type) => {
+    setFood(type); // обновляем состояние
+  };
 
-export default function Main({ tour }) {
   return (
     <section className="main">
       <div className="container">
@@ -20,34 +35,62 @@ export default function Main({ tour }) {
           <div className="main__numbers">
             <h2 className="main__subtitle">доступные номера</h2>
             <ul className="main__numbers-list">
-              {console.log(tour)}
               {tour.rooms &&
-                tour.rooms.map((room, index) => (
+                tour.rooms.map((item, index) => (
                   <li key={index} className="main__numbers-item">
                     <article className="numbers__card">
                       <img
                         className="numbers__card-img"
-                        src={room.images}
+                        src={item.images}
                         alt="Tour image"
                       />
                       <div className="numbers__card-content">
                         <div className="numbers__card-header">
                           <div className="numbers__card-header-left">
-                            <h3 className="numbers__card-title">{room.type}</h3>
+                            <h3 className="numbers__card-title">{item.type}</h3>
                             <div
                               className="numbers__card-tourists"
-                              data-users="2 человека"
+                              data-users={`${tourist} ${
+                                tourist === 1 ? "человек" : "человека"
+                              }`}
                             >
-                              <img src={UserIcon} alt="" />
-                              <img src={UserIcon} alt="" />
+                              {Array.from({ length: tourist }, (_, index) => (
+                                <img
+                                  key={index}
+                                  src={UserIcon}
+                                  alt="UserIcon"
+                                />
+                              ))}
                             </div>
                           </div>
                           <div className="numbers__card-header-right">
-                            <button data-status="в цене">Выбрано</button>
+                            <button
+                              className={`main__card-btn ${
+                                item.type === room ? "active" : ""
+                              }`}
+                              data-status={
+                                item.type === room
+                                  ? "в цене"
+                                  : `${
+                                      item.price >
+                                      (tour.rooms.find((r) => r.type === room)
+                                        ?.price || 0)
+                                        ? "+"
+                                        : "-"
+                                    }${Math.abs(
+                                      item.price -
+                                        (tour.rooms.find((r) => r.type === room)
+                                          ?.price || 0)
+                                    ).toLocaleString("ru-RU")}₽`
+                              }
+                              onClick={() => handleRoomType(item.type)}
+                            >
+                              {item.type === room ? "Выбрано" : "Выбрать"}
+                            </button>
                           </div>
                         </div>
                         <ul className="numbers__card-list">
-                          {room.details.map((detail, i) => (
+                          {item.details.map((detail, i) => (
                             <li key={i}>{detail}</li>
                           ))}
                         </ul>
@@ -60,91 +103,16 @@ export default function Main({ tour }) {
           <div className="main__rating">
             <h2
               className="main__subtitle rating__title"
-              data-rating={tour.user_rating_total}
+              data-rating={getAverageRating(tour.rating_details)}
             >
               рейтинг отеля
             </h2>
             <ul className="main__rating-list">
-              {tour.rating_purity ? (
-                <li data-rating={Number(tour.rating_purity).toFixed(1)}>
-                  <span>Чистота</span>
+              {tour.rating_details.map((item, index) => (
+                <li key={index} data-rating={Number(item.rating).toFixed(1)}>
+                  <span>{item.type}</span>
                 </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_infrastructure ? (
-                <li data-rating={Number(tour.rating_infrastructure).toFixed(1)}>
-                  <span>Инфраструктура</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_location ? (
-                <li data-rating={Number(tour.rating_location).toFixed(1)}>
-                  <span>Локация</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_convenience_rooms ? (
-                <li
-                  data-rating={Number(tour.rating_convenience_rooms).toFixed(1)}
-                >
-                  <span>Удобства номеров</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_wifi ? (
-                <li data-rating={Number(tour.rating_wifi).toFixed(1)}>
-                  <span>Wi-Fi</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_pool ? (
-                <li data-rating={Number(tour.rating_pool).toFixed(1)}>
-                  <span>Бассейн(ы)</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_availability_transport ? (
-                <li
-                  data-rating={Number(
-                    tour.rating_availability_transport
-                  ).toFixed(1)}
-                >
-                  <span>Транспорт</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_room_service ? (
-                <li data-rating={Number(tour.rating_room_service).toFixed(1)}>
-                  <span>Обслуживание</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_childrens_zone ? (
-                <li data-rating={Number(tour.rating_childrens_zone).toFixed(1)}>
-                  <span>Детская зона</span>
-                </li>
-              ) : (
-                <></>
-              )}
-              {tour.rating_entertainment_excursions ? (
-                <li
-                  data-rating={Number(
-                    tour.rating_entertainment_excursions
-                  ).toFixed(1)}
-                >
-                  <span>Экскурсии</span>
-                </li>
-              ) : (
-                <></>
-              )}
+              ))}
             </ul>
           </div>
           <div className="main__location">
@@ -255,14 +223,36 @@ export default function Main({ tour }) {
           <div className="main__food">
             <h2 className="main__subtitle">Еда</h2>
             {tour.mealPlans &&
-              tour.mealPlans.map((food, i) => (
+              tour.mealPlans.map((item, i) => (
                 <div key={i} className="main__food-block">
                   <div className="main__food-header">
-                    <strong>{food.type}</strong>
-                    <button data-status={food.price}>Выбрано</button>
+                    <strong>{item.type}</strong>
+                    <button
+                      className={`main__card-btn ${
+                        item.type === food ? "active" : ""
+                      }`}
+                      data-status={
+                        item.type === food
+                          ? "в цене"
+                          : `${
+                              item.price >
+                              (tour.mealPlans.find((r) => r.type === food)
+                                ?.price || 0)
+                                ? "+"
+                                : "-"
+                            }${Math.abs(
+                              item.price -
+                                (tour.mealPlans.find((r) => r.type === food)
+                                  ?.price || 0)
+                            ).toLocaleString("ru-RU")}₽`
+                      }
+                      onClick={() => handleFoodType(item.type)}
+                    >
+                      {item.type === food ? "Выбрано" : "Выбрать"}
+                    </button>
                   </div>
                   <ul className="main__food-list">
-                    {food.details.map((e, key) => (
+                    {item.details.map((e, key) => (
                       <li key={key}>{e}</li>
                     ))}
                   </ul>

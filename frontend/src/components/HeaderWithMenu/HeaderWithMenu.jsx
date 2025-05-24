@@ -16,7 +16,7 @@ export default function HeaderWithMenu() {
 
   return (
     <>
-      <Header toggleMenu={toggleMenu} buttonRef={buttonRef} />
+      <Header toggleMenu={toggleMenu} buttonRef={buttonRef}/>
       <Dropdawn isOpen={isMenuOpen} closeMenu={closeMenu} buttonRef={buttonRef} />
     </>
   );

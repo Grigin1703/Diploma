@@ -3,6 +3,8 @@ import ButtonIcon from "@/assets/icons/arrow-white.svg";
 import Button from "@/components/Button/Button";
 
 import { useState, useRef, useEffect } from "react";
+import { useLocalStorageWithExpiry } from "@/utils/useLocalStorageWithExpiry";
+
 import { getAirportsByCity } from "@/api/tours.js";
 import Swiper from "@/components/Swiper/Swiper";
 import DatePicker from "react-datepicker";
@@ -15,71 +17,86 @@ export default function TourForm({
   rooms,
   foods,
   openModal,
+  room,
+  setRoom,
+  food,
+  setFood,
+  days,
+  setDays,
+  tourist,
+  setTourist,
 }) {
   const [touristsDropdown, setTouristsDropdown] = useState(false);
   const formTourists = useRef(null);
-  const [tourists, setTourists] = useState(() => {
-    return Number(localStorage.getItem("tourists")) || 1;
-  });
+  const [tourists, setTourists] = useState(tourist);
   const [tempTourists, setTempTourists] = useState(tourists);
 
   const [roomDropdown, setRoomDropdown] = useState(false);
   const formRoom = useRef(null);
-  const [selectedRoomType, setSelectedRoomType] = useState(() => {
-    const room = localStorage.getItem("room");
-    if (!room) return rooms[0].type;
-    return room;
-  });
+  const [selectedRoomType, setSelectedRoomType] = useState(room);
+
+  useEffect(() => {
+    setSelectedRoomType(room);
+    setConfirmedRoomType(room);
+  }, [room, rooms]);
+
   const [confirmedRoomType, setConfirmedRoomType] = useState(selectedRoomType);
   const handleSelectRoom = (type) => {
     setSelectedRoomType(type);
   };
   const applySelectedRoom = () => {
     setConfirmedRoomType(selectedRoomType);
-    localStorage.setItem("room", selectedRoomType);
+    setRoom(selectedRoomType);
   };
 
   const [foodDropdown, setFoodDropdown] = useState(false);
   const formFood = useRef(null);
-  const [selectedFoodType, setSelectedFoodType] = useState(() => {
-    const food = localStorage.getItem("food");
-    if (!food) return foods[0].type;
-    return food;
-  });
+  const [selectedFoodType, setSelectedFoodType] = useState(food);
+
+  useEffect(() => {
+    setSelectedFoodType(food);
+    setConfirmedFoodType(food);
+  }, [food, foods]);
+
+  const availableFoodTypes = foods.map((food) => food.type);
+  const availableRoomTypes = rooms.map((room) => room.type);
   const [confirmedFoodType, setConfirmedFoodType] = useState(selectedFoodType);
   const handleSelectFood = (type) => {
     setSelectedFoodType(type);
   };
   const applySelectedFood = () => {
     setConfirmedFoodType(selectedFoodType);
-    localStorage.setItem("food", selectedFoodType);
+    setFood(selectedFoodType);
   };
 
   const [departureDropdown, setDepartureDropdown] = useState(false);
   const formDeparture = useRef(null);
 
-  const [departureDate, setDepartureDate] = useState(() => {
-    const saved = localStorage.getItem("departureDate");
-    return saved ? new Date(saved) : new Date();
-  });
+  const [departureDate, setDepartureDate] = useLocalStorageWithExpiry(
+    "departureDate",
+    new Date()
+  );
   const [tempDepartureDate, setTempDepartureDate] = useState(departureDate);
-  const [stayDuration, setStayDuration] = useState(() => {
-    const days = localStorage.getItem("days");
-    if (!days) return 10;
-    const cleaned = days.replace(/\D/g, "");
-    return parseInt(cleaned, 10) || 10;
-  });
+
+  const [stayDuration, setStayDuration] = useState(days);
   const [tempDuration, setTempDuration] = useState(stayDuration);
   const datePickerRef = useRef(false);
 
-  const cityFrom = localStorage.getItem("departure") || "Москва";
+  useEffect(() => {
+    setStayDuration(days);
+    setTempDuration(days);
+  }, [days]);
+
+  const [departureCity] = useLocalStorageWithExpiry("departure", "Москва");
   const [airports, setAirports] = useState([]);
-  const [selectedAirport, setSelectedAirport] = useState(() => {
-    const airport = localStorage.getItem("airport");
-    return airport ? parseInt(airport, 10) : "";
-  });
+  const [selectedAirport, setSelectedAirport] = useLocalStorageWithExpiry(
+    "airport",
+    1
+  );
+
   const [confirmedAirportType, setConfirmedAirportType] =
     useState(selectedAirport);
+
 
   const selectedFood = foods.find((food) => food.type === selectedFoodType);
   const selectedRoom = rooms.find((room) => room.type === selectedRoomType);
@@ -88,15 +105,16 @@ export default function TourForm({
   );
 
   const total =
-    (Number(pricesByDuration[stayDuration]) +
-      Number(selectedFood?.price) +
-      Number(selectedRoom?.price) +
-      Number(priceAirport?.price)) *
-    tempTourists;
+    Number(pricesByDuration[stayDuration]) +
+    Number(selectedFood?.price) +
+    Number(selectedRoom?.price) +
+    Number(priceAirport?.price);
+
+  const totalAll = total * tourists;
 
   useEffect(() => {
     const fetchAirports = async () => {
-      getAirportsByCity(cityFrom).then((data) => {
+      getAirportsByCity(departureCity).then((data) => {
         setAirports(data);
         if (data.length === 1) {
           setSelectedAirport(data[0].id); // если один аэропорт, сразу выбрать его
@@ -105,19 +123,17 @@ export default function TourForm({
     };
 
     fetchAirports();
-  }, [cityFrom]);
+  }, [departureCity]);
 
   const applySelectedAirport = () => {
     setConfirmedAirportType(selectedAirport);
-    localStorage.setItem("airport", selectedAirport);
   };
 
   const handleApplySelection = () => {
     setStayDuration(tempDuration);
     setDepartureDate(tempDepartureDate);
+    setDays(tempDuration);
     datePickerRef.current.setOpen(false);
-    localStorage.setItem("days", tempDuration);
-    localStorage.setItem("departureDate", tempDepartureDate.toISOString());
   };
 
   const formatFullRange = (startDate, duration) => {
@@ -153,14 +169,14 @@ export default function TourForm({
   });
 
   const incrementTourists = () => {
-    setTempTourists((prev) => prev + 1);
+    setTempTourists((prev) => (prev == 1 ? prev + 1 : 2));
   };
   const decrementTourists = () => {
     setTempTourists((prev) => (prev > 1 ? prev - 1 : 1));
   };
   const applyTourists = () => {
     setTourists(tempTourists);
-    localStorage.setItem("tourists", tempTourists);
+    setTourist(tempTourists);
   };
 
   const slide = (pricesByDuration) => {
@@ -182,20 +198,18 @@ export default function TourForm({
       ));
   };
   return (
-    <div className="from__block">
+    <div className="form">
       <div className="form__container">
         <div className="form__header">
           <h3 className="form__title">Твой отдых</h3>
           <div className="hero__price-block">
             <span>
-              <strong>
-                {pricesByDuration[stayDuration].toLocaleString("ru-RU")} ₽
-              </strong>
-              / за 1 человека
+              <strong>{total ? total.toLocaleString("ru-Ru") : ""} ₽</strong>/
+              за 1 человека
             </span>
           </div>
         </div>
-        <form className="form">
+        <form className="form__form">
           <div className="form__data form__block">
             <strong
               className="form__data-value"
@@ -212,6 +226,7 @@ export default function TourForm({
               minDate={new Date()}
               monthsShown={1}
               locale={ru}
+              placeholderText="Выбирете дату"
               dateFormat="dd.MM.yyyy"
               calendarContainer={({ children }) => (
                 <div className="custom-calendar-container">
@@ -228,7 +243,7 @@ export default function TourForm({
                     </div>
                     <div className="extra-content__bottom">
                       <span>
-                        <strong>{total.toLocaleString("ru-Ru")}₽</strong>/ за{" "}
+                        <strong>{totalAll.toLocaleString("ru-Ru")}₽</strong>/ за{" "}
                         {tempTourists} человека
                       </span>
                       <Button
@@ -292,7 +307,9 @@ export default function TourForm({
               className="form__block-span"
               onClick={() => setRoomDropdown(!roomDropdown)}
             >
-              {confirmedRoomType}
+              {availableRoomTypes.includes(confirmedRoomType)
+                ? confirmedRoomType
+                : "Выберите тип номера"}
             </span>
 
             <div
@@ -318,7 +335,19 @@ export default function TourForm({
                             <span>
                               {selectedRoomType === room.type
                                 ? "в цене"
-                                : room.price}
+                                : `${
+                                    room.price >
+                                    (rooms.find(
+                                      (r) => r.type === selectedRoomType
+                                    )?.price || 0)
+                                      ? "+ "
+                                      : "- "
+                                  }${Math.abs(
+                                    room.price -
+                                      (rooms.find(
+                                        (r) => r.type === selectedRoomType
+                                      )?.price || 0)
+                                  ).toLocaleString("ru-RU")}₽`}
                             </span>
                           </li>
                         ))}
@@ -345,7 +374,9 @@ export default function TourForm({
               className="form__block-span"
               onClick={() => setFoodDropdown(!foodDropdown)}
             >
-              {confirmedFoodType}
+              {availableFoodTypes.includes(confirmedFoodType)
+                ? confirmedFoodType
+                : "Выберите тип питания"}
             </span>
 
             <div
@@ -371,7 +402,19 @@ export default function TourForm({
                             <span>
                               {selectedFoodType === food.type
                                 ? "в цене"
-                                : food.price}
+                                : `${
+                                    food.price >
+                                    (foods.find(
+                                      (r) => r.type === selectedFoodType
+                                    )?.price || 0)
+                                      ? "+ "
+                                      : "- "
+                                  }${Math.abs(
+                                    food.price -
+                                      (foods.find(
+                                        (r) => r.type === selectedFoodType
+                                      )?.price || 0)
+                                  ).toLocaleString("ru-RU")}₽`}
                             </span>
                           </li>
                         ))}
@@ -398,6 +441,7 @@ export default function TourForm({
               className="form__block-span"
               onClick={() => setDepartureDropdown(!departureDropdown)}
             >
+              <strong>{departureCity},</strong>{" "}
               {airports.find((a) => a.id === confirmedAirportType)?.name ||
                 "Выберите аэропорт"}
             </span>
@@ -429,8 +473,21 @@ export default function TourForm({
                             <span>
                               {selectedAirport === airport.id
                                 ? "в цене"
-                                : airport.price}
+                                : `${
+                                    airport.price >
+                                    (airports.find(
+                                      (r) => r.id === selectedAirport
+                                    )?.price || 0)
+                                      ? "+ "
+                                      : "- "
+                                  }${Math.abs(
+                                    airport.price -
+                                      (airports.find(
+                                        (r) => r.id === selectedAirport
+                                      )?.price || 0)
+                                  ).toLocaleString("ru-RU")}₽`}
                             </span>
+                            {console.log(selectedAirport)}
                           </li>
                         ))}
                     </ul>
@@ -451,9 +508,13 @@ export default function TourForm({
         </form>
         <div className="form__footer">
           <strong className="form__result">
-            ИТОГ: {total.toLocaleString("ru-Ru")}₽
+            ИТОГ: {totalAll ? `${totalAll.toLocaleString("ru-Ru")}₽` : ""}
           </strong>
-          <Button children={"оставить заявку"} icon={ButtonIcon} onClick={openModal}/>
+          <Button
+            children={"оставить заявку"}
+            icon={ButtonIcon}
+            onClick={openModal}
+          />
         </div>
       </div>
     </div>

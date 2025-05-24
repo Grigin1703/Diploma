@@ -1,6 +1,7 @@
 import HeaderWithMenu from "@/components/HeaderWithMenu/HeaderWithMenu";
 import Hero from "@/components/Hero/Hero";
 import Contact from "@/components/Contact/Contact";
+import Footer from "@/components/Footer/Footer";
 
 import { HeroContent } from "@/data/data";
 
@@ -17,6 +18,7 @@ export default function ContactPage() {
         />
         <Contact/>
       </main>
+      <Footer/>
     </div>
   );
 }

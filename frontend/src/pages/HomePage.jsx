@@ -6,6 +6,7 @@ import Reviews from "@/components/Home/Reviews/Reviews";
 import News from "@/components/Home/News/News";
 import About from "@/components/Home/About/About";
 import Spam2 from "@/components/Spam2/Spam2";
+import Footer from "@/components/Footer/Footer";
 
 import { HeroContent } from "@/data/data";
 
@@ -28,6 +29,7 @@ export default function Home() {
         <About />
         <Spam2 />
       </main>
+      <Footer/>
     </div>
   );
 }
