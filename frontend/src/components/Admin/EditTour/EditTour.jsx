@@ -178,7 +178,7 @@ export default function EditTour() {
     <>
       <header className="header">
         <div className="container header__container">
-          <Logo />
+          <Logo admin/>
           <nav className="nav">
             <ul className="nav__list">
               <li className="nav__item">
@@ -249,6 +249,7 @@ export default function EditTour() {
           setFormData={setFormData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          edit
         />
         <TourFoodInfoForm
           formData={formData}

@@ -47,10 +47,10 @@ export default function ToursSlide({
         <div className="tours__slide-content">
           <div className="tours__slide-top">
             <div className="tours__slide-days">
-              <span>{days}</span>
+              <span>{days} дней</span>
             </div>
             <div className="tours__slide-price">
-              <span>{price}</span>
+              <span>{price.toLocaleString("ru-Ru")}₽</span>
             </div>
           </div>
           <div className="tours__slide-bottom">

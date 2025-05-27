@@ -1,5 +1,7 @@
 .editTour,
-.addTour {
+.addTour,
+.addNews,
+.editNews {
   .header {
     position: fixed;
     padding: 0;
@@ -35,7 +37,8 @@
     margin-bottom: 30px;
   }
 
-  .formTour__section {
+  .formTour__section,
+  .formNews__section {
     scroll-margin-top: 80px;
     margin-bottom: 80px;
 
@@ -75,12 +78,19 @@
       line-height: 1.5;
       text-align: justify;
       border: 10px solid $belyy;
+      color: $seryy-tekst;
       padding-right: 10px;
+      transition: color 0.2s ease-in;
 
       @include scrollbar;
+
+      &:focus {
+        color: $chernyy;
+      }
     }
 
-    .formTour__section-title {
+    .formTour__section-title,
+    .formNews__section-title {
       font-size: 30px;
       margin-bottom: 30px;
     }

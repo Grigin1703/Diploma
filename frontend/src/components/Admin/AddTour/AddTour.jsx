@@ -50,7 +50,7 @@ export default function AddTour() {
   const heandleNavBtnClick = (e) => {
     setActiveNavBtn(e);
   };
-  
+
   useEffect(() => {
     if (formData.imges.length === 0) {
       setFormData((prev) => ({
@@ -66,7 +66,7 @@ export default function AddTour() {
       await createTour(formData);
       //   navigate("/admin");
     } catch (err) {
-      aalert(`Ошибка при создании тура: ${err}`);
+      alert(`Ошибка при создании тура: ${err}`);
     }
   };
 
@@ -182,7 +182,7 @@ export default function AddTour() {
     <>
       <header className="header">
         <div className="container header__container">
-          <Logo />
+          <Logo admin />
           <nav className="nav">
             <ul className="nav__list">
               <li className="nav__item">

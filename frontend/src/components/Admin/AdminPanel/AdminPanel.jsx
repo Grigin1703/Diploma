@@ -1,18 +1,22 @@
 import "./AdminPanel.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getToursAdmin, deleteTour } from "@/api/tours.js";
+import { getToursAdmin, deleteTour, getNews } from "@/api/tours.js";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
 import Logo from "@/components/logo/logo";
 import RatingImg from "@/assets/icons/star1.svg";
 
 export default function AdminPanel() {
   const navigate = useNavigate();
   const [tours, setTours] = useState([]);
+  const [news, setNews] = useState([]);
   const [sortConfig, setSortConfig] = useState({
     key: null,
     direction: null,
   });
+  const [navActive, setNavActive] = useState("");
 
   const sortedTours = [...tours];
 
@@ -76,7 +80,9 @@ export default function AdminPanel() {
     const fetchTour = async () => {
       try {
         const data = await getToursAdmin();
+        const newss = await getNews();
         setTours(data);
+        setNews(newss);
       } catch (err) {
         console.error("Ошибка", err);
       }
@@ -108,25 +114,52 @@ export default function AdminPanel() {
           <nav className="nav">
             <ul className="nav__list">
               <li>
-                <Link to="/admin">Туры</Link>
+                <a
+                  href="#tours"
+                  className={navActive === "tours" ? "active" : ""}
+                  onClick={() => setNavActive("tours")}
+                >
+                  Туры
+                </a>
               </li>
               <li>
-                <Link to="/admin">Новости</Link>
+                <a
+                  href="#news"
+                  className={navActive === "news" ? "active" : ""}
+                  onClick={() => setNavActive("news")}
+                >
+                  Новости
+                </a>
               </li>
             </ul>
           </nav>
-          <button
-            className="header__btn"
-            onClick={() => navigate("/admin/add")}
-          >
-            Добавить тур
-          </button>
+          <div className="header__btn-block">
+            <button
+              className="header__btn"
+              onClick={() => navigate("/admin/add")}
+            >
+              Добавить тур
+            </button>
+            <button
+              className="header__btn"
+              onClick={() => navigate("/admin/news/add")}
+            >
+              Добавить новость
+            </button>
+            <button
+              className="header__btn header__btn_back"
+              onClick={handleBack}
+            >
+              Выйти
+            </button>
+          </div>
         </div>
       </header>
       <main>
-        <section className="table">
+        <section className="table" id="tours">
+          <h1 className="table__title">Админ Панель</h1>
           <div className="container">
-            <h1 className="table__title">Админ Панель</h1>
+            <h2 className="admin__subtitle">Туры</h2>
             <table className="table__table">
               <thead className="table__head">
                 <tr className="table__row">
@@ -211,6 +244,31 @@ export default function AdminPanel() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+
+        <section className="news" id="news">
+          <h2 className="admin__subtitle">Новости</h2>
+          <div className="container news__container">
+            {news.map((item, i) => (
+              <Link
+                key={i}
+                to={`/admin/news/edit/${item.id}`}
+                className="news__block"
+              >
+                <div>
+                  <img src={item.image} alt="" />
+                  <div className="news__contetn">
+                    <h3>{item.title}</h3>
+                    <span>
+                      {format(item.createdAt, "d MMMM yyyy, HH:mm", {
+                        locale: ru,
+                      })}
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
       </main>

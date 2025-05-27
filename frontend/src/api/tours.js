@@ -132,6 +132,29 @@ export const getIdNews = async (id) => {
   }
 };
 
+export const updateNews = async (id, newsData) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.put(`${API_URL}/news/${id}`, newsData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Ошибка при редактировании новости:", error);
+  }
+};
+
+export const createNews = async (newsData) => {
+  try {
+    const response = await axios.post(`${API_URL}/news`, newsData);
+    return response.data;
+  } catch (error) {
+    alert(`Ошибка при создании новости: ${error.response.data.error}`);
+  }
+};
+
 export const handleSubscribe = async (email) => {
   if (!email) {
     alert("Введите email!");

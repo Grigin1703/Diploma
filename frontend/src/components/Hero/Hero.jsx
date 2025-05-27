@@ -27,7 +27,7 @@ export default function Hero({ imgBg, title, disc, search }) {
 
   const [countriesSelect, setCountriesSelect] = useLocalStorageWithExpiry(
     "countries",
-    "..."
+    Countries[0].name
   );
   const [countriesOpen, setCountriesOpen] = useState(false);
   const countriesRef = useRef(null);
@@ -50,17 +50,6 @@ export default function Hero({ imgBg, title, disc, search }) {
   const incrementTourists = () => setTourists((prev) => prev + 1);
   const decrementTourists = () =>
     setTourists((prev) => (prev > 1 ? prev - 1 : 1));
-
-  // useEffect(() => {
-  //   localStorage.setItem("departure", departureSelect);
-  //   localStorage.setItem("countries", countriesSelect);
-  //   localStorage.setItem(
-  //     "departureDate",
-  //     departureDate ? departureDate.toISOString() : ""
-  //   );
-  //   localStorage.setItem("days", daysSelect);
-  //   localStorage.setItem("tourists", tourists);
-  // }, [departureSelect, countriesSelect, departureDate, daysSelect, tourists]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {

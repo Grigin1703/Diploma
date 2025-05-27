@@ -7,6 +7,7 @@ export default function TourBasicInfoForm({
   setFormData,
   handleChange,
   handleSubmit,
+  edit
 }) {
   const [durationMaxOpen, setDurationMaxOpen] = useState(false);
   const durationMaxValue = [8, 10, 12, 15, 20];
@@ -34,7 +35,7 @@ export default function TourBasicInfoForm({
 
   return (
     <section className="formTour__basic formTour__section" id="basic">
-      <h1 className="formTour__title">Новый Тур</h1>
+      <h1 className="formTour__title">{edit ? "Редактировать тур" : "Новый тур"}</h1>
       <div className="container">
         <h2 className="formTour__section-title">Основные:</h2>
         <form onSubmit={handleSubmit} className="formTour__form">

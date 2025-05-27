@@ -28,10 +28,35 @@
   display: flex;
   align-items: center;
   gap: 10px;
+
+  .header__icon-tel,
+  .header__icon-loc {
+    &:hover .header__icon-dropdown {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
 
-.header__icon-btn-img:hover {
-  filter: opacity(80%);
+.header__icon-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 55px;
+  right: 24%;
+  background-color: transparent;
+  padding-top: 40px;
+  max-width: 270px;
+  text-align: left;
+  transition: opacity 0.2s ease-in, visibility 0.2s ease-in;
+  .header__dropdown-wrapper {
+    background-color: $belyy;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px 40px;
+    border-radius: 30px;
+  }
 }
 
 .dropdawn-btn {

@@ -13,8 +13,10 @@ import PrivateRoute from "@/components/Admin/PrivateRoute/PrivateRoute";
 import EditTourPage from "./pages/EditTourPage";
 import AddTourPage from "./pages/AddTourPage";
 import NewsPage from "./pages/NewsPage";
-import ContactPage from "./pages/СontactPage"
-import AboutPage from "./pages/AboutPage"
+import ContactPage from "./pages/СontactPage";
+import AboutPage from "./pages/AboutPage";
+import EditNewsPage from "./pages/EditNewsPage"
+import AddNewsPage from "./pages/AddNewsPage"
 
 export default function App() {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -68,6 +70,22 @@ export default function App() {
             element={
               <PrivateRoute>
                 <AddTourPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/news/edit/:id"
+            element={
+              <PrivateRoute>
+                <EditNewsPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/news/add"
+            element={
+              <PrivateRoute>
+                <AddNewsPage />
               </PrivateRoute>
             }
           />
