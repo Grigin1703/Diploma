@@ -1,0 +1,46 @@
+.orderForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+  .orderForm__block{
+    position: relative;
+    &::before{
+      position: absolute;
+      display: block;
+      content: attr(data-error);
+      color: $krasnyy;
+      top: 0;
+      right: 0;
+    }
+  }
+  input {
+    width: 100%;
+    border: 1px solid $liniya;
+    padding: 10px 5px 11px 26px;
+    border-radius: 30px;
+    color: $seryy-tekst;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in, color 0.2s ease-in;
+
+    &:focus {
+      border-color: $chernyy;
+      color: $chernyy;
+    }
+  }
+
+  label {
+    display: block;
+    padding-left: 26px;
+    font-size: 14px;
+    font-weight: 300;
+    margin-bottom: 5px;
+    color: $seryy-tekst-2;
+
+    span {
+      color: $krasnyy;
+      font-weight: 900;
+    }
+  }
+}

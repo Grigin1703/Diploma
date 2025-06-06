@@ -1,19 +1,19 @@
-import HeaderWithMenu from "@/components/HeaderWithMenu/HeaderWithMenu";
-import Hero from "@/components/Hero/Hero";
-import Tours from "@/components/Home/Tours/Tours";
-import Spam from "@/components/Spam/Spam";
-import Reviews from "@/components/Home/Reviews/Reviews";
-import News from "@/components/Home/News/News";
-import About from "@/components/Home/About/About";
-import Spam2 from "@/components/Spam2/Spam2";
-import Footer from "@/components/Footer/Footer";
+import Header from "@/components/layout/header/header";
+import Hero from "@/components/common/Hero/Hero";
+import Tours from "@/components/pages/Home/Tours/Tours";
+import Spam from "@/components/common/Spam/Spam";
+import Reviews from "@/components/pages/Home/Reviews/Reviews";
+import News from "@/components/pages/Home/News/News";
+import About from "@/components/pages/Home/About/About";
+import Spam2 from "@/components/common/Spam2/Spam2";
+import Footer from "@/components/layout/Footer/Footer";
 
 import { HeroContent } from "@/data/data";
 
 export default function Home() {
   return (
     <div className="home">
-      <HeaderWithMenu />
+      <Header />
       <main>
         <Hero
           search={HeroContent[0].search}

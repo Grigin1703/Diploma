@@ -1,8 +1,8 @@
-import NewsFull from "@/components/NewsFull/NewsFull";
-import Footer from "@/components/Footer/Footer";
+import NewsFull from "@/components/pages/NewsFull/NewsFull";
+import Footer from "@/components/layout/Footer/Footer";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getIdNews } from "@/api/tours";
+import { getIdNews } from "@/api/news";
 export default function NewsPage() {
   const { id } = useParams();
   const [news, setNews] = useState(null);

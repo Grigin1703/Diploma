@@ -2,17 +2,17 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocalStorageWithExpiry } from "@/utils/useLocalStorageWithExpiry";
 import { getByIdTour } from "@/api/tours.js";
-import Herader from "@/components/HeaderWithMenu/HeaderWithMenu";
-import Hero from "@/components/TourCardAll/Hero/Hero";
-import Main from "@/components/TourCardAll/Main/Main";
-import OrderModal from "@/components/Order/Modal/Modal";
-import TourForm from "@/components/TourCardAll/TourCardForm/TourCardForm";
+import Header from "@/components/layout/header/header";
+import Hero from "@/components/pages/TourCardAll/Hero/Hero";
+import Main from "@/components/pages/TourCardAll/Main/Main";
+import OrderModal from "@/components/pages/Order/Modal/Modal";
+import TourForm from "@/components/pages/TourCardAll/TourCardForm/TourCardForm";
 
 export default function TourCardAll() {
   const { id } = useParams();
   const [tour, setTour] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const [room, setRoom] = useLocalStorageWithExpiry("room", "Comfort room");
   const [food, setFood] = useLocalStorageWithExpiry("food", "Только завтраки");
   const [days, setDays] = useLocalStorageWithExpiry("days", 6);
@@ -37,7 +37,7 @@ export default function TourCardAll() {
 
   return (
     <div className="tourCardAllPage">
-      <Herader />
+      <Header />
       <main>
         <Hero tour={tour} getAverageRating={getAverageRating} />
         <Main
@@ -69,6 +69,10 @@ export default function TourCardAll() {
         tour={tour}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        days={days}
+        food={food}
+        room={room}
+        tourist={tourists}
       />
     </div>
   );

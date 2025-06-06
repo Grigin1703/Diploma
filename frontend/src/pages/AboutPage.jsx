@@ -1,15 +1,15 @@
-import HeaderWithMenu from "@/components/HeaderWithMenu/HeaderWithMenu";
-import Hero from "@/components/Hero/Hero";
-import Img1 from "@/assets/images/home/about/img-1.png";
-import Img2 from "@/assets/images/home/about/img-2.png";
-import Footer from "@/components/Footer/Footer";
+import Header from "@/components/layout/header/header";
+import Hero from "@/components/common/Hero/Hero";
+import Img1 from "/Tours/1.png";
+import Img2 from "/Tours/1.png";
+import Footer from "@/components/layout/Footer/Footer";
 
 import { HeroContent } from "@/data/data";
 
 export default function AboutPage() {
   return (
     <div className="aboutPage">
-      <HeaderWithMenu />
+      <Header />
       <main>
         <Hero
           search={HeroContent[5].search}

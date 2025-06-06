@@ -1,22 +1,21 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from "react";
-import GlobalLoader from "@/components/GlobalLoader/GlobalLoader";
+import GlobalLoader from "@/components/ui/GlobalLoader/GlobalLoader";
 
 import Home from "./pages/HomePage";
 import Tours from "./pages/ToursPage";
-import HotTours from "./pages/HotToursPage";
 import Countries from "./pages/CountriesPage";
 import TourCardAll from "./pages/TourCardAllPage";
-import FormAdmin from "@/components/Admin/FormAdmin/FormAdmin";
-import AdminPanel from "./pages/AdminPanelPage";
-import PrivateRoute from "@/components/Admin/PrivateRoute/PrivateRoute";
-import EditTourPage from "./pages/EditTourPage";
-import AddTourPage from "./pages/AddTourPage";
 import NewsPage from "./pages/NewsPage";
 import ContactPage from "./pages/СontactPage";
 import AboutPage from "./pages/AboutPage";
-import EditNewsPage from "./pages/EditNewsPage"
-import AddNewsPage from "./pages/AddNewsPage"
+// import FormAdmin from "@/components/Admin/FormAdmin/FormAdmin";
+// import AdminPanel from "./pages/AdminPanelPage";
+// import PrivateRoute from "@/components/Admin/PrivateRoute/PrivateRoute";
+// import EditTourPage from "./pages/EditTourPage";
+// import AddTourPage from "./pages/AddTourPage";
+// import EditNewsPage from "./pages/EditNewsPage"
+// import AddNewsPage from "./pages/AddNewsPage"
 
 export default function App() {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
@@ -43,52 +42,52 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Tours" element={<Tours />} />
-          <Route path="/HotTours" element={<HotTours />} />
+          <Route path="/HotTours" element={<Tours hot/>} />
           <Route path="/Countries" element={<Countries />} />
           <Route path="/Tours/:id" element={<TourCardAll />} />
           <Route path="/Tours/news/:id" element={<NewsPage />} />
           <Route path="/Contact" element={<ContactPage />} />
           <Route path="/About" element={<AboutPage />} />
-          <Route
+          {/* <Route
             path="/admin"
             element={
               <PrivateRoute>
                 <AdminPanel />
               </PrivateRoute>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/admin/edit/:id"
             element={
               <PrivateRoute>
                 <EditTourPage />
               </PrivateRoute>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/admin/add"
             element={
               <PrivateRoute>
                 <AddTourPage />
               </PrivateRoute>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/admin/news/edit/:id"
             element={
               <PrivateRoute>
                 <EditNewsPage />
               </PrivateRoute>
             }
-          />
-          <Route
+          /> */}
+          {/* <Route
             path="/admin/news/add"
             element={
               <PrivateRoute>
                 <AddNewsPage />
               </PrivateRoute>
             }
-          />
+          /> */}
         </Routes>
       </Router>
     </>
