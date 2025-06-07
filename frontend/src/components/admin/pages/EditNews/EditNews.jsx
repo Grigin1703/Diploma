@@ -1,9 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getIdNews, updateNews, createNews } from "@/api/tours";
-import "../FormTour/FormTour.scss";
+import { getIdNews, updateNews, createNews } from "@/api/news";
+import "../../form/FormTour/FormTour.scss";
 import "./EditNews.scss";
-import Logo from "@/components/logo/logo";
+import Logo from "@/components/layout/header/logo/logo";
+
+import TextBlock from "./TextBlock";
+import ImageBlock from "./ImageBlock";
+import TextWithTitlesBlock from "./TextWithTitlesBlock";
 
 export default function EditNews({ add }) {
   const { id } = useParams();
@@ -32,7 +36,7 @@ export default function EditNews({ add }) {
         };
       }
 
-      return block; // fallback
+      return block; 
     });
   }
   function transformContentToDB(content) {
@@ -257,117 +261,39 @@ export default function EditNews({ add }) {
               if (block.text) {
                 if (block.text.length === 1 && block.text[0].desc) {
                   return (
-                    <div key={index} className="formNews__allText">
-                      <div className="textarea__block-wrapper">
-                        <label htmlFor={`allText-${index + 1}`}>
-                          Описание:
-                        </label>
-                        <div className="textarea__block">
-                          <textarea
-                            id={`allText-${index + 1}`}
-                            value={block.text[0].desc}
-                            onChange={(e) =>
-                              handleTextChange(index, e.target.value)
-                            }
-                          />
-                        </div>
-                      </div>
-                      <button
-                        className="fromNews__removeBlock"
-                        onClick={() => removeBlock(index)}
-                      >
-                        Удалить блок
-                      </button>
-                    </div>
+                    <TextBlock
+                      key={index}
+                      block={block}
+                      index={index}
+                      onChange={handleTextChange}
+                      onRemove={removeBlock}
+                    />
                   );
                 }
                 if (block.text.length === 2 && block.text[0].title) {
                   return (
-                    <div key={index} className="formNews__text-wrapper">
-                      <div>
-                        {block.text.map((item, i) => (
-                          <div key={i} className="formNews__text-block">
-                            <label htmlFor={`title-text-${index}-${i}`}>
-                              Заголовок:
-                            </label>
-                            <input
-                              id={`title-text-${index}-${i}`}
-                              value={item.title}
-                              onChange={(e) =>
-                                handleTwoTextChange(
-                                  index,
-                                  i,
-                                  "title",
-                                  e.target.value
-                                )
-                              }
-                              placeholder="Заголовок"
-                            />
-                            <div className="textarea__block-wrapper">
-                              <label htmlFor={`desc-text-${index}-${i}`}>
-                                Описание:
-                              </label>
-                              <div className="textarea__block">
-                                <textarea
-                                  id={`desc-text-${index}-${i}`}
-                                  value={item.desc}
-                                  onChange={(e) =>
-                                    handleTwoTextChange(
-                                      index,
-                                      i,
-                                      "desc",
-                                      e.target.value
-                                    )
-                                  }
-                                  placeholder="Текст"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                      <button
-                        onClick={() => removeBlock(index)}
-                        className="fromNews__removeBlock"
-                      >
-                        Удалить блок
-                      </button>
-                    </div>
+                    <TextWithTitlesBlock
+                      key={index}
+                      block={block}
+                      index={index}
+                      onChange={handleTwoTextChange}
+                      onRemove={removeBlock}
+                    />
                   );
                 }
               }
 
               if (block.img) {
                 return (
-                  <div key={index} className="formNews__img-block">
-                    <div className="formNews__img-wrapper">
-                      {block.img.map((img, i) => (
-                        <div key={i}>
-                          <label htmlFor={`img-${index}-${i}`}>
-                            Изображение:
-                          </label>
-                          <input
-                            id={`img-${index}-${i}`}
-                            key={i}
-                            value={img}
-                            onChange={(e) =>
-                              handleImageChange(index, i, e.target.value)
-                            }
-                            placeholder={`URL картинки ${i + 1}`}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <button
-                      className="fromNews__removeBlock"
-                      onClick={() => removeBlock(index)}
-                    >
-                      Удалить блок
-                    </button>
-                  </div>
+                  <ImageBlock
+                    key={index}
+                    block={block}
+                    index={index}
+                    onChange={handleImageChange}
+                    onRemove={removeBlock}
+                  />
                 );
               }
-
               return null;
             })}
 

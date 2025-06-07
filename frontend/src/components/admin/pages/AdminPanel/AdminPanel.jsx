@@ -1,11 +1,12 @@
 import "./AdminPanel.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getToursAdmin, deleteTour, getNews } from "@/api/tours.js";
+import { getNews } from "@/api/news";
+import { getTours, deleteTour } from "@/api/tours";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
-import Logo from "@/components/logo/logo";
+import Logo from "@/components/layout/header/logo/logo";
 import RatingImg from "@/assets/icons/star1.svg";
 
 export default function AdminPanel() {
@@ -79,7 +80,7 @@ export default function AdminPanel() {
   useEffect(() => {
     const fetchTour = async () => {
       try {
-        const data = await getToursAdmin();
+        const data = await getTours();
         const newss = await getNews();
         setTours(data);
         setNews(newss);

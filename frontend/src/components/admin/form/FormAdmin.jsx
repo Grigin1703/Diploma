@@ -1,5 +1,5 @@
 import "./FormAdmin.scss";
-import { loginAdmin } from "@/api/tours";
+import { loginAdmin } from "@/api/admin";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

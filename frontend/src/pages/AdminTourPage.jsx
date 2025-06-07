@@ -1,4 +1,4 @@
-import EditTour from "@/components/Admin/EditTour/EditTour"
+import EditTour from "@/components/Admin/pages/EditTour/EditTour"
 
 export default function EditTourPage() {
     return (

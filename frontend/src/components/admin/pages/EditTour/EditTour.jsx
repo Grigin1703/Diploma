@@ -1,8 +1,8 @@
-import "../FormTour/FormTour.scss";
+import "../../form/FormTour/FormTour.scss";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getByIdTourAdmin, updateTour } from "@/api/tours.js";
-import Logo from "@/components/logo/logo";
+import { getByIdTour, updateTour, createTour } from "@/api/tours.js";
+import Logo from "@/components/layout/header/logo/logo";
 
 import TourBasicInfoForm from "../../form/FormTour/TourBasicInfoForm/TourBasicInfoForm";
 import TourFoodInfoForm from "../../form/FormTour/TourFoodInfoForm/TourFoodInfoForm";
@@ -13,6 +13,7 @@ import TourAllInfoForm from "../../form/FormTour/TourAllInfoForm/TourAllInfoForm
 export default function EditTour() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const isEditMode = Boolean(id);
   const [formData, setFormData] = useState({
     title: "",
     sub_title: "",
@@ -48,18 +49,44 @@ export default function EditTour() {
   });
 
   const [activeNavBtn, setActiveNavBtn] = useState("btn_1");
+
+  useEffect(() => {
+    if (isEditMode) {
+      (async () => {
+        try {
+          const tour = await getByIdTour(id);
+          setFormData(tour);
+        } catch (err) {
+          alert("Ошибка загрузки тура: " + err);
+        }
+      })();
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        imges: [{ image_url: [""] }],
+      }));
+    }
+  }, [id]);
+
   const heandleNavBtnClick = (e) => {
     setActiveNavBtn(e);
   };
 
-  useEffect(() => {
-    const fetchTour = async () => {
-      const data = await getByIdTourAdmin(id);
-      setFormData(data);
-    };
-
-    fetchTour();
-  }, [id]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (isEditMode) {
+        await updateTour(id, formData);
+        alert("Тур успешно обновлён");
+      } else {
+        await createTour(formData);
+        alert("Тур успешно создан");
+      }
+      navigate("/admin");
+    } catch (err) {
+      alert(`Ошибка при сохранении тура: ${err}`);
+    }
+  };
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -163,11 +190,6 @@ export default function EditTour() {
       updatedArray[index][nestedField] = updatedNested;
       return { ...prev, [arrayField]: updatedArray };
     });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await updateTour(id, formData);
   };
 
   const handleScip = () => {
